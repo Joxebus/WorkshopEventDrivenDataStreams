@@ -30,7 +30,7 @@ The project consists of three Maven modules:
 - **MySQL** for persistent data storage
 - **Spring Data JPA** for database access
 - **Thymeleaf + Tailwind CSS** for frontend UI
-- **Spock Framework** (Groovy 4.0) for testing
+- **Spock Framework 2.4-M7** with Groovy 5.0.0-alpha-11 for testing (Java 25 compatible)
 - **Maven** for build management (multi-module structure)
 - **Docker Compose** for local infrastructure (Kafka, Zookeeper, MySQL)
 
@@ -281,19 +281,70 @@ The project uses shared DTOs from the `spring-boot-kafka-common` module:
 ## Testing Strategy
 
 ### Framework
-- **Spock Framework** 2.4-M4 with Groovy 4.0 for all tests
+- **Spock Framework 2.4-M7** with Groovy 5.0.0-alpha-11 for all tests
 - Tests located in `src/test/groovy/` directories
+- Configured with gmavenplus-plugin 4.0.1 for Java 25 bytecode support
+- Uses Spock's expressive Given-When-Then BDD syntax
+- Built-in mocking with `Mock()`, `Stub()`, and interaction verification
 
-### Backend Tests
-- **Unit Tests**: Service layer logic with mocked dependencies
-- **Integration Tests**: Kafka consumers with @EmbeddedKafka
-- **Repository Tests**: JPA repositories with H2 in-memory database or Testcontainers
-- **REST Tests**: Controller endpoints with MockMvc
+### Test Configuration
+Both backend and frontend modules use the following Maven configuration:
+```xml
+<plugin>
+    <groupId>org.codehaus.gmavenplus</groupId>
+    <artifactId>gmavenplus-plugin</artifactId>
+    <version>4.0.1</version>
+    <configuration>
+        <skipBytecodeCheck>true</skipBytecodeCheck>
+        <includeClasspath>PROJECT_AND_PLUGIN</includeClasspath>
+    </configuration>
+</plugin>
+```
 
-### Frontend Tests
-- **Unit Tests**: Service layer (backend communication)
-- **Controller Tests**: Thymeleaf controllers with MockMvc
-- **Template Tests**: View rendering with spring-boot-starter-thymeleaf-test
+### Backend Tests (27 tests)
+- **Service Layer Unit Tests** (Implemented):
+  - `ProductCommandServiceSpec`: Tests for product creation, update, deletion, stock management (7 tests)
+  - `ProductQueryServiceSpec`: Tests for product queries and searches (7 tests)
+  - `OrderCommandServiceSpec`: Tests for order creation and processing (5 tests)
+  - `OrderQueryServiceSpec`: Tests for order queries by ID, customer, and status (7 tests)
+  - `ApplicationSpec`: Basic application context test (1 test)
+- **Integration Tests** (Future):
+  - Kafka consumers with @EmbeddedKafka
+  - Repository tests with @DataJpaTest (currently blocked by Spring Boot test autoconfigure classpath issues)
+  - REST controller tests with @WebMvcTest
+
+### Frontend Tests (12 tests)
+- **Service Layer Unit Tests** (Implemented):
+  - `ProductServiceSpec`: Tests for REST client product operations - get all, get by ID, create, update, delete (6 tests)
+  - `OrderServiceSpec`: Tests for REST client order queries (3 tests)
+  - `PurchaseOrderProducerSpec`: Tests for Kafka message publishing with correct topic and key (2 tests)
+  - `ApplicationSpec`: Basic application context test (1 test)
+- **Controller Tests** (Future):
+  - Thymeleaf controller tests with MockMvc
+  - Template rendering tests
+
+### Running Tests
+```bash
+# Run all tests in both modules
+mvn test
+
+# Run backend tests only
+cd spring-boot-kafka-backend && mvn test
+
+# Run frontend tests only
+cd spring-boot-kafka-frontend && mvn test
+
+# Run specific test class
+mvn test -Dtest=ProductCommandServiceSpec
+
+# Run with verbose output
+mvn test -X
+```
+
+### Test Coverage
+- Backend: 27 tests covering service layer CQRS implementation
+- Frontend: 12 tests covering service layer and Kafka producer
+- Total: 39 unit tests with Spock Framework
 
 ## Serialization Strategy
 
@@ -342,6 +393,26 @@ The project uses shared DTOs from the `spring-boot-kafka-common` module:
 - See `spring-boot-kafka-backend/AGENTS.md` for backend implementation details
 - See `spring-boot-kafka-frontend/AGENTS.md` for frontend implementation details
 
+### Java 25 and Groovy Compatibility
+This project uses Java 25 with Groovy 5.0.0-alpha-11 for test compilation:
+- **Java Version**: 25 (via sdkman: `sdk install java 25.0.3-amzn`)
+- **Groovy Version**: 5.0.0-alpha-11 (supports Java 25 bytecode - major version 69)
+- **Spock Version**: 2.4-M7-groovy-5.0 (compatible with Groovy 5)
+- **Build Plugin**: gmavenplus-plugin 4.0.1 with `skipBytecodeCheck=true`
+
+**Important**: Earlier versions of Groovy (4.0.x) do not support Java 25 bytecode and will fail with "Unsupported class file major version 69" errors. Groovy 5.0+ is required for Java 25 compatibility.
+
+**Maven Configuration** (Parent POM):
+```xml
+<properties>
+    <maven.compiler.source>25</maven.compiler.source>
+    <maven.compiler.target>25</maven.compiler.target>
+    <java.version>25</java.version>
+    <spock.version>2.4-M7-groovy-5.0</spock.version>
+    <groovy.version>5.0.0-alpha-11</groovy.version>
+</properties>
+```
+
 ## Important Conventions
 
 - This is a workshop/demo project focused on teaching Event-Driven Architecture patterns
@@ -351,7 +422,16 @@ The project uses shared DTOs from the `spring-boot-kafka-common` module:
 - Share common DTOs and enums via the common module
 - Use Lombok for reducing boilerplate in DTOs and entities
 - Follow CQRS pattern in backend services (CommandService/QueryService)
-- Write tests using Spock Framework (Groovy)
+- Write tests using Spock Framework (Groovy 5.0.0-alpha-11)
+
+### Testing Conventions
+- Use Spock's Given-When-Then syntax for test readability
+- Place test files in `src/test/groovy/` with `Spec.groovy` suffix
+- Use `Mock()` for dependencies requiring interaction verification
+- Use `Stub()` for dependencies with simple return values
+- Test one behavior per test method with descriptive names
+- Group related tests in the same specification class
+- Avoid testing Spring Boot autoconfigure annotations (@WebMvcTest, @DataJpaTest) due to Groovy classpath resolution issues - prefer pure unit tests with mocks
 
 ## Version management
 
