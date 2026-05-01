@@ -1,0 +1,23 @@
+package io.github.joxebus.dto;
+
+
+import io.github.joxebus.enums.PurchaseOrderStatus;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@AllArgsConstructor
+@Getter
+@Setter
+public class PurchaseOrderDTO {
+    private String orderId;
+    private String customerId;
+    private List<ProductOrderDTO> products;
+    private Double total;
+    private LocalDateTime orderDate;
+    private PurchaseOrderStatus status;
+
+}

@@ -13,7 +13,7 @@
     </parent>
 
 	<properties>
-
+		<groovy.version>5.0.0-alpha-11</groovy.version>
 	</properties>
 	<dependencies>
         <!-- Common module with DTOs -->
@@ -42,8 +42,66 @@
             <scope>runtime</scope>
         </dependency>
 
+		<!-- Spring Boot Test dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Groovy 5 for Spock tests with Java 25 support -->
+		<dependency>
+			<groupId>org.apache.groovy</groupId>
+			<artifactId>groovy</artifactId>
+			<version>${groovy.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.groovy</groupId>
+			<artifactId>groovy-nio</artifactId>
+			<version>${groovy.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
-
+	<build>
+		<plugins>
+			<!-- Groovy compiler for Spock tests -->
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>4.0.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compileTests</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<skipBytecodeCheck>true</skipBytecodeCheck>
+					<includeClasspath>PROJECT_AND_PLUGIN</includeClasspath>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.groovy</groupId>
+						<artifactId>groovy</artifactId>
+						<version>${groovy.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-test</artifactId>
+						<version>4.0.6</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-test-autoconfigure</artifactId>
+						<version>4.0.6</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
