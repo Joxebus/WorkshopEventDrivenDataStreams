@@ -24,26 +24,82 @@
             </a>
         </div>
 
-        <div class="mt-16 max-w-2xl mx-auto">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Learning Topics</h3>
-            <ul class="text-left bg-white rounded-lg shadow-lg p-6 space-y-2">
-                <li class="flex items-start">
-                    <span class="text-green-600 mr-2">✓</span>
-                    <span>Event Sourcing Principles</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="text-green-600 mr-2">✓</span>
-                    <span>CQRS (Command Query Responsibility Segregation)</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="text-green-600 mr-2">✓</span>
-                    <span>Asynchronous vs Synchronous Communication</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="text-green-600 mr-2">✓</span>
-                    <span>Kafka Message Producers & Consumers</span>
-                </li>
-            </ul>
+        <div class="mt-16 max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">What This Workshop Demonstrates</h3>
+
+            <!-- Communication Patterns -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h4 class="text-xl font-bold text-blue-600 mb-4">Communication Patterns</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h5 class="font-bold text-gray-800 mb-2">Synchronous (HTTP/REST)</h5>
+                        <p class="text-sm text-gray-600">Product management operations use REST API for immediate response and data consistency</p>
+                    </div>
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h5 class="font-bold text-gray-800 mb-2">Asynchronous (Kafka)</h5>
+                        <p class="text-sm text-gray-600">Order placement uses Kafka messaging for scalable, decoupled event-driven processing</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Patterns -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h4 class="text-xl font-bold text-blue-600 mb-4">Architecture Patterns</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <span class="text-green-600 mr-2 text-xl">✓</span>
+                        <div>
+                            <span class="font-semibold">CQRS</span>
+                            <span class="text-gray-600"> - Separate CommandService and QueryService layers for write/read operations</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-600 mr-2 text-xl">✓</span>
+                        <div>
+                            <span class="font-semibold">Event Sourcing</span>
+                            <span class="text-gray-600"> - Purchase orders processed as immutable events via Kafka topics</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-600 mr-2 text-xl">✓</span>
+                        <div>
+                            <span class="font-semibold">Multi-Module Architecture</span>
+                            <span class="text-gray-600"> - Shared DTOs, separate backend/frontend concerns</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Technology Stack -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h4 class="text-xl font-bold text-blue-600 mb-4">Technology Stack</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-gray-50 p-3 rounded">
+                        <span class="font-semibold block text-gray-800">Spring Boot 4</span>
+                        <span class="text-gray-600">Java 25</span>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded">
+                        <span class="font-semibold block text-gray-800">Apache Kafka</span>
+                        <span class="text-gray-600">Messaging</span>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded">
+                        <span class="font-semibold block text-gray-800">MySQL 8</span>
+                        <span class="text-gray-600">Persistence</span>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded">
+                        <span class="font-semibold block text-gray-800">Thymeleaf</span>
+                        <span class="text-gray-600">Templates</span>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded">
+                        <span class="font-semibold block text-gray-800">Tailwind CSS</span>
+                        <span class="text-gray-600">Styling</span>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded">
+                        <span class="font-semibold block text-gray-800">Docker</span>
+                        <span class="text-gray-600">Infrastructure</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
