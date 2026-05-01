@@ -4,8 +4,8 @@ import spock.lang.Specification
 
 class ApplicationSpec extends Specification {
 
-    def "Test"() {
-        expect:
-        1 == 1
+    def "application context loads"() {
+        expect: "application class exists"
+        SpringBootKafkaFrontendApplication != null
     }
 }
