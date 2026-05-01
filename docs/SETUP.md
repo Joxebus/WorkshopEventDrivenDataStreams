@@ -50,7 +50,7 @@ cd SpringBootKafkaWorkshop
 ### 3. Build the Project
 
 ```bash
-mvn clean install
+mvn clean verify
 ```
 
 This will:
@@ -331,10 +331,10 @@ docker-compose up -d --build
 ### Build Errors
 ```bash
 # Clean and rebuild
-mvn clean install -U
+mvn clean verify -U
 
 # Skip tests
-mvn clean install -DskipTests
+mvn clean verify -DskipTests
 
 # Check Java version
 java -version  # Should be 25.x.x

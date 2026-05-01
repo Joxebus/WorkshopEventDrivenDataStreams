@@ -97,13 +97,13 @@ docker-compose down -v
 
 #### Build entire project
 ```bash
-mvn clean install
+mvn clean verify
 ```
 
 #### Build specific module
 ```bash
 cd spring-boot-kafka-backend
-mvn clean install
+mvn clean verify
 ```
 
 #### Run backend service

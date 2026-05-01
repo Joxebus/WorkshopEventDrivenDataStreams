@@ -36,7 +36,7 @@ Welcome to the Spring Boot Kafka Workshop documentation. This workshop demonstra
 docker-compose up -d
 
 # 2. Build project
-mvn clean install
+mvn clean verify
 
 # 3. Start backend
 cd spring-boot-kafka-backend && mvn spring-boot:run
@@ -174,7 +174,7 @@ Common issues and solutions:
 |-------|----------|
 | Port 8080 in use | `lsof -i :8080` and kill process |
 | Docker services not starting | `docker-compose down -v && docker-compose up -d` |
-| Build errors | `mvn clean install -U` |
+| Build errors | `mvn clean verify -U` |
 | Lombok not working | Enable annotation processing in IDE |
 | Database connection failed | Check MySQL is running: `docker ps` |
 
