@@ -12,8 +12,8 @@ spring:
     cache: false
 
 server:
-  port: 8081
+  port: 8080
 
 backend:
   api:
-    url: http://localhost:8080/api
+    url: http://localhost:8081/api

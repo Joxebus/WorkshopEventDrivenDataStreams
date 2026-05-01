@@ -16,7 +16,7 @@ class OrderServiceSpec extends Specification {
     @Subject
     OrderService service = new OrderService(
             restTemplate: restTemplate,
-            backendUrl: "http://localhost:8080/api"
+            backendUrl: "http://localhost:8081/api"
     )
 
     def "should get all orders"() {
@@ -25,7 +25,7 @@ class OrderServiceSpec extends Specification {
                 new PurchaseOrderDTO("order-1", "CUSTOMER-001", [], 50.0, LocalDateTime.now(), PurchaseOrderStatus.PENDING),
                 new PurchaseOrderDTO("order-2", "CUSTOMER-001", [], 75.0, LocalDateTime.now(), PurchaseOrderStatus.COMPLETED)
         ] as PurchaseOrderDTO[]
-        restTemplate.getForObject("http://localhost:8080/api/orders", PurchaseOrderDTO[].class) >> orders
+        restTemplate.getForObject("http://localhost:8081/api/orders", PurchaseOrderDTO[].class) >> orders
 
         when: "getting all orders"
         def result = service.getAllOrders()
@@ -38,7 +38,7 @@ class OrderServiceSpec extends Specification {
 
     def "should return empty list when backend returns null"() {
         given: "backend returns null"
-        restTemplate.getForObject("http://localhost:8080/api/orders", PurchaseOrderDTO[].class) >> null
+        restTemplate.getForObject("http://localhost:8081/api/orders", PurchaseOrderDTO[].class) >> null
 
         when: "getting all orders"
         def result = service.getAllOrders()
@@ -54,7 +54,7 @@ class OrderServiceSpec extends Specification {
                 new ProductOrderDTO("product-2", 1, 15.0, 15.0)
         ]
         def order = new PurchaseOrderDTO("order-1", "CUSTOMER-001", products, 35.0, LocalDateTime.now(), PurchaseOrderStatus.PENDING)
-        restTemplate.getForObject("http://localhost:8080/api/orders/order-1", PurchaseOrderDTO.class) >> order
+        restTemplate.getForObject("http://localhost:8081/api/orders/order-1", PurchaseOrderDTO.class) >> order
 
         when: "getting order by ID"
         def result = service.getOrderById("order-1")

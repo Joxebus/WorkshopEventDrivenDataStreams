@@ -90,8 +90,8 @@ docker-compose down -v
 ### Startup Order
 
 1. **Infrastructure** (Docker Compose)
-2. **Backend** (port 8080)
-3. **Frontend** (port 8081)
+2. **Backend** (port 8081)
+3. **Frontend** (port 8080)
 
 ### Building and Running
 
@@ -112,7 +112,7 @@ cd spring-boot-kafka-backend
 mvn spring-boot:run
 ```
 
-Backend runs on **http://localhost:8080**
+Backend runs on **http://localhost:8081**
 
 #### Run frontend service
 ```bash
@@ -120,7 +120,7 @@ cd spring-boot-kafka-frontend
 mvn spring-boot:run
 ```
 
-Frontend runs on **http://localhost:8081**
+Frontend runs on **http://localhost:8080**
 
 #### Run tests
 ```bash
@@ -403,8 +403,8 @@ mvn test -X
 
 ## Port Configuration
 
-- **Backend**: 8080 (REST API)
-- **Frontend**: 8081 (Web UI)
+- **Frontend**: 8080 (Web UI)
+- **Backend**: 8081 (REST API)
 - **MySQL**: 3306
 - **Kafka**: 9092
 - **Zookeeper**: 2181

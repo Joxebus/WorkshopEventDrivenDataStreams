@@ -12,7 +12,7 @@ class ProductServiceSpec extends Specification {
     @Subject
     ProductService service = new ProductService(
             restTemplate: restTemplate,
-            backendUrl: "http://localhost:8080/api"
+            backendUrl: "http://localhost:8081/api"
     )
 
     def "should get all products"() {
@@ -21,7 +21,7 @@ class ProductServiceSpec extends Specification {
                 new ProductDTO("id1", "Product 1", "Desc 1", 10.0, 5, "Cat1"),
                 new ProductDTO("id2", "Product 2", "Desc 2", 20.0, 10, "Cat2")
         ] as ProductDTO[]
-        restTemplate.getForObject("http://localhost:8080/api/products", ProductDTO[].class) >> products
+        restTemplate.getForObject("http://localhost:8081/api/products", ProductDTO[].class) >> products
 
         when: "getting all products"
         def result = service.getAllProducts()
@@ -34,7 +34,7 @@ class ProductServiceSpec extends Specification {
 
     def "should return empty list when backend returns null"() {
         given: "backend returns null"
-        restTemplate.getForObject("http://localhost:8080/api/products", ProductDTO[].class) >> null
+        restTemplate.getForObject("http://localhost:8081/api/products", ProductDTO[].class) >> null
 
         when: "getting all products"
         def result = service.getAllProducts()
@@ -46,7 +46,7 @@ class ProductServiceSpec extends Specification {
     def "should get product by ID"() {
         given: "backend returns product"
         def product = new ProductDTO("id1", "Product", "Description", 15.0, 8, "Category")
-        restTemplate.getForObject("http://localhost:8080/api/products/id1", ProductDTO.class) >> product
+        restTemplate.getForObject("http://localhost:8081/api/products/id1", ProductDTO.class) >> product
 
         when: "getting product by ID"
         def result = service.getProductById("id1")
@@ -60,7 +60,7 @@ class ProductServiceSpec extends Specification {
         given: "product to create"
         def newProduct = new ProductDTO(null, "New Product", "New Desc", 25.0, 15, "New Cat")
         def createdProduct = new ProductDTO("generated-id", "New Product", "New Desc", 25.0, 15, "New Cat")
-        restTemplate.postForObject("http://localhost:8080/api/products", newProduct, ProductDTO.class) >> createdProduct
+        restTemplate.postForObject("http://localhost:8081/api/products", newProduct, ProductDTO.class) >> createdProduct
 
         when: "creating product"
         def result = service.createProduct(newProduct)
@@ -78,7 +78,7 @@ class ProductServiceSpec extends Specification {
         service.updateProduct("id1", product)
 
         then: "REST template put is called"
-        1 * restTemplate.put("http://localhost:8080/api/products/id1", product)
+        1 * restTemplate.put("http://localhost:8081/api/products/id1", product)
     }
 
     def "should delete product"() {
@@ -86,6 +86,6 @@ class ProductServiceSpec extends Specification {
         service.deleteProduct("id1")
 
         then: "REST template delete is called"
-        1 * restTemplate.delete("http://localhost:8080/api/products/id1")
+        1 * restTemplate.delete("http://localhost:8081/api/products/id1")
     }
 }

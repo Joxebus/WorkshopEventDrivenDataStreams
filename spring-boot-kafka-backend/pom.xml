@@ -42,6 +42,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Jackson for JSON serialization/deserialization -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
 		<!-- Spring Boot Test dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

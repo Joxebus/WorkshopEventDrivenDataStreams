@@ -27,4 +27,4 @@ spring:
         spring.json.trusted.packages: io.github.joxebus.dto
 
 server:
-  port: 8080
+  port: 8081
