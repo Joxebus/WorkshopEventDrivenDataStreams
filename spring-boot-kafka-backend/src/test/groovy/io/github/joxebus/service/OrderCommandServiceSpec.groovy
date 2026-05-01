@@ -39,26 +39,12 @@ class OrderCommandServiceSpec extends Specification {
             PurchaseOrderStatus.CREATED
         )
 
-        and: "all products exist"
-        productRepository.existsById("product-1") >> true
-        productRepository.existsById("product-2") >> true
-
-        and: "sufficient stock available"
-        productCommandService.decrementStock("product-1", 2) >> {}
-        productCommandService.decrementStock("product-2", 1) >> {}
-
-        and: "order is saved"
-        orderRepository.save(_ as Order) >> { Order order ->
-            order.status = PurchaseOrderStatus.PENDING
-            return order
-        }
-
         when: "creating the order"
         def result = service.createOrder(orderDto)
 
         then: "products exist check is performed"
-        1 * productRepository.existsById("product-1")
-        1 * productRepository.existsById("product-2")
+        1 * productRepository.existsById("product-1") >> true
+        1 * productRepository.existsById("product-2") >> true
 
         and: "stock is decremented"
         1 * productCommandService.decrementStock("product-1", 2)
@@ -71,7 +57,7 @@ class OrderCommandServiceSpec extends Specification {
             o.total == 35.0 &&
             o.status == PurchaseOrderStatus.PENDING &&
             o.items.size() == 2
-        })
+        }) >> { Order o -> o }
 
         and: "result has PENDING status"
         result.status == PurchaseOrderStatus.PENDING

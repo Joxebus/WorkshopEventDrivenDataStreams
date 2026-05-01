@@ -17,10 +17,6 @@ class ProductCommandServiceSpec extends Specification {
         given: "a product DTO without ID"
         def dto = new ProductDTO(null, "Laptop", "Gaming laptop", 1299.99, 10, "Electronics")
 
-        and: "repository saves successfully"
-        def savedProduct = new Product("generated-uuid", "Laptop", "Gaming laptop", 1299.99, 10, "Electronics", null, null)
-        productRepository.save(_ as Product) >> savedProduct
-
         when: "creating the product"
         def result = service.createProduct(dto)
 
@@ -32,10 +28,10 @@ class ProductCommandServiceSpec extends Specification {
             p.stock == 10 &&
             p.category == "Electronics" &&
             p.id != null
-        })
+        }) >> { Product p -> p }
 
         and: "result contains the saved product"
-        result.id == "generated-uuid"
+        result.id != null
         result.name == "Laptop"
         result.price == 1299.99
     }
@@ -49,9 +45,6 @@ class ProductCommandServiceSpec extends Specification {
         and: "updated product DTO"
         def updateDto = new ProductDTO(productId, "New Name", "New Desc", 200.0, 15, "New Cat")
 
-        and: "repository saves successfully"
-        productRepository.save(_ as Product) >> existingProduct
-
         when: "updating the product"
         def result = service.updateProduct(productId, updateDto)
 
@@ -63,7 +56,7 @@ class ProductCommandServiceSpec extends Specification {
             p.price == 200.0 &&
             p.stock == 15 &&
             p.category == "New Cat"
-        })
+        }) >> { Product p -> p }
 
         and: "result is returned"
         result.name == "New Name"
