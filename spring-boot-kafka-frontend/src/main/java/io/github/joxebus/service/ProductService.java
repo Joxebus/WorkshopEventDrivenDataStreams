@@ -32,7 +32,16 @@ public class ProductService {
     }
 
     public PageResponse<ProductDTO> getAllProductsPaginated(int page, int size) {
-        String url = backendUrl + "/products/paginated?page=" + page + "&size=" + size;
+        return getAllProductsPaginated(page, size, null);
+    }
+
+    public PageResponse<ProductDTO> getAllProductsPaginated(int page, int size, String category) {
+        StringBuilder urlBuilder = new StringBuilder(backendUrl + "/products/paginated?page=" + page + "&size=" + size);
+        if (category != null && !category.isEmpty() && !category.equals("All")) {
+            urlBuilder.append("&category=").append(category);
+        }
+        String url = urlBuilder.toString();
+
         try {
             String response = restTemplate.getForObject(url, String.class);
             JsonNode rootNode = objectMapper.readTree(response);
@@ -56,6 +65,12 @@ public class ProductService {
         } catch (Exception e) {
             throw new RuntimeException("Error fetching paginated products", e);
         }
+    }
+
+    public List<String> getAllCategories() {
+        String url = backendUrl + "/products/categories";
+        String[] categories = restTemplate.getForObject(url, String[].class);
+        return categories != null ? Arrays.asList(categories) : List.of();
     }
 
     public ProductDTO getProductById(String id) {

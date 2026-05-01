@@ -9,14 +9,37 @@
         </a>
     </div>
 
+    <!-- Category Filter Section -->
+    <div class="mb-6 flex items-center gap-4">
+        <label for="categoryFilter" class="text-sm font-semibold text-gray-700">Filter by Category:</label>
+        <select id="categoryFilter"
+                onchange="window.location.href='/products?page=0&size=' + [[${pageSize}]] + '&category=' + this.value"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="All" th:selected="${selectedCategory == 'All'}">All Categories</option>
+            <option th:each="cat : ${categories}"
+                    th:value="${cat}"
+                    th:text="${cat}"
+                    th:selected="${cat == selectedCategory}">
+                Category
+            </option>
+        </select>
+        <span class="text-sm text-gray-600" th:if="${selectedCategory != 'All'}">
+            Showing: <span class="font-semibold" th:text="${selectedCategory}"></span>
+        </span>
+    </div>
+
     <div th:if="${products.isEmpty()}" class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-        No products available. Create your first product!
+        <span th:if="${selectedCategory == 'All'}">No products available. Create your first product!</span>
+        <span th:unless="${selectedCategory == 'All'}">No products found in category: <span th:text="${selectedCategory}"></span></span>
     </div>
 
     <div th:unless="${products.isEmpty()}">
         <div class="mb-4 text-sm text-gray-600">
             Showing <span class="font-semibold" th:text="${#lists.size(products)}">20</span> of
             <span class="font-semibold" th:text="${totalElements}">100</span> products
+            <span th:if="${selectedCategory != 'All'}">
+                in category: <span class="font-semibold" th:text="${selectedCategory}"></span>
+            </span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -62,14 +85,14 @@
         <div class="mt-8 flex justify-center items-center space-x-2">
             <!-- First Page -->
             <a th:if="${currentPage > 0}"
-               th:href="@{/products(page=0, size=${pageSize})}"
+               th:href="@{/products(page=0, size=${pageSize}, category=${selectedCategory != 'All' ? selectedCategory : null})}"
                class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
                 &laquo; First
             </a>
 
             <!-- Previous Page -->
             <a th:if="${currentPage > 0}"
-               th:href="@{/products(page=${currentPage - 1}, size=${pageSize})}"
+               th:href="@{/products(page=${currentPage - 1}, size=${pageSize}, category=${selectedCategory != 'All' ? selectedCategory : null})}"
                class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
                 &lsaquo; Previous
             </a>
@@ -77,7 +100,7 @@
             <!-- Page Numbers -->
             <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:if="${i >= currentPage - 2 && i <= currentPage + 2}">
                 <a th:if="${i != currentPage}"
-                   th:href="@{/products(page=${i}, size=${pageSize})}"
+                   th:href="@{/products(page=${i}, size=${pageSize}, category=${selectedCategory != 'All' ? selectedCategory : null})}"
                    th:text="${i + 1}"
                    class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
                     1
@@ -91,14 +114,14 @@
 
             <!-- Next Page -->
             <a th:if="${currentPage < totalPages - 1}"
-               th:href="@{/products(page=${currentPage + 1}, size=${pageSize})}"
+               th:href="@{/products(page=${currentPage + 1}, size=${pageSize}, category=${selectedCategory != 'All' ? selectedCategory : null})}"
                class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
                 Next &rsaquo;
             </a>
 
             <!-- Last Page -->
             <a th:if="${currentPage < totalPages - 1}"
-               th:href="@{/products(page=${totalPages - 1}, size=${pageSize})}"
+               th:href="@{/products(page=${totalPages - 1}, size=${pageSize}, category=${selectedCategory != 'All' ? selectedCategory : null})}"
                class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
                 Last &raquo;
             </a>
@@ -107,7 +130,7 @@
         <!-- Page Size Selector -->
         <div class="mt-4 flex justify-center items-center space-x-2">
             <span class="text-sm text-gray-600">Items per page:</span>
-            <select onchange="window.location.href='/products?page=0&size=' + this.value"
+            <select onchange="window.location.href='/products?page=0&size=' + this.value + '&category=' + [[${selectedCategory != 'All' ? selectedCategory : ''}]]"
                     class="px-3 py-1 border border-gray-300 rounded">
                 <option th:value="10" th:selected="${pageSize == 10}">10</option>
                 <option th:value="20" th:selected="${pageSize == 20}">20</option>

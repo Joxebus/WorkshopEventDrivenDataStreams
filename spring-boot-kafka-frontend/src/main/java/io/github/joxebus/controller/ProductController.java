@@ -23,13 +23,18 @@ public class ProductController {
     @GetMapping
     public String list(@RequestParam(defaultValue = "0") int page,
                       @RequestParam(defaultValue = "20") int size,
+                      @RequestParam(required = false) String category,
                       Model model) {
-        PageResponse<ProductDTO> pageResponse = productService.getAllProductsPaginated(page, size);
+        PageResponse<ProductDTO> pageResponse = productService.getAllProductsPaginated(page, size, category);
+        List<String> categories = productService.getAllCategories();
+
         model.addAttribute("products", pageResponse.getContent());
         model.addAttribute("currentPage", pageResponse.getPageNumber());
         model.addAttribute("totalPages", pageResponse.getTotalPages());
         model.addAttribute("totalElements", pageResponse.getTotalElements());
         model.addAttribute("pageSize", size);
+        model.addAttribute("categories", categories);
+        model.addAttribute("selectedCategory", category != null ? category : "All");
         model.addAttribute("title", "Products");
         return "products/list";
     }

@@ -31,9 +31,16 @@ public class ProductController {
     @GetMapping("/paginated")
     public ResponseEntity<Page<ProductDTO>> getAllProductsPaginated(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
-        Page<ProductDTO> products = productQueryService.getAllProductsPaginated(page, size);
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(required = false) String category) {
+        Page<ProductDTO> products = productQueryService.getAllProductsPaginated(page, size, category);
         return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getAllCategories() {
+        List<String> categories = productQueryService.getAllCategories();
+        return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")

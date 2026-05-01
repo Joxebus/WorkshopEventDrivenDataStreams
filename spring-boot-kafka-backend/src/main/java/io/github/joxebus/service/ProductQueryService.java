@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,23 @@ public class ProductQueryService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
         return productRepository.findAll(pageable)
             .map(this::mapToDTO);
+    }
+
+    public Page<ProductDTO> getAllProductsPaginated(int page, int size, String category) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+
+        Page<Product> productPage;
+        if (StringUtils.hasText(category)) {
+            productPage = productRepository.findByCategory(category, pageable);
+        } else {
+            productPage = productRepository.findAll(pageable);
+        }
+
+        return productPage.map(this::mapToDTO);
+    }
+
+    public List<String> getAllCategories() {
+        return productRepository.findDistinctCategories();
     }
 
     public ProductDTO getProductById(String id) {
