@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: main}">
 <body>
 <div th:fragment="content">
+    <script th:src="@{/js/forms.js}"></script>
     <div class="max-w-4xl mx-auto">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-800">Shopping Cart</h1>
@@ -60,7 +61,7 @@
                     <form action="/orders/clear-cart" method="post" class="flex-1">
                         <button type="submit"
                                 class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded"
-                                onclick="return confirm('Clear all items from cart?');">
+                                onclick="return confirmDelete('Clear all items from cart?');">
                             Clear Cart
                         </button>
                     </form>
