@@ -41,6 +41,11 @@ The project consists of three Maven modules:
 - Maven 3.x
 - Docker and Docker Compose
 
+### Platform Notes
+- **Apple Silicon (M1/M2/M3)**: Docker Compose is configured with `platform: linux/arm64` for MySQL to run natively on ARM architecture
+- **Intel/AMD (x86_64)**: Change MySQL platform in docker-compose.yml to `linux/amd64` if needed
+- Kafka and Zookeeper images are multi-platform and work on both architectures
+
 ### Start Infrastructure
 
 Start MySQL, Kafka, and Zookeeper with Docker Compose:
@@ -50,9 +55,37 @@ docker-compose up -d
 ```
 
 This will start:
-- **MySQL** on localhost:3306 (database: workshop)
+- **MySQL 8.0** on localhost:3306 (database: workshop) - Optimized for Apple Silicon (linux/arm64)
 - **Zookeeper** on localhost:2181
 - **Kafka** on localhost:9092
+
+All services include health checks to ensure proper startup order:
+- **Zookeeper**: Health check via netcat on port 2181
+- **Kafka**: Waits for Zookeeper to be healthy, then checks broker API
+- **MySQL**: Health check via mysqladmin ping
+
+Check service health status:
+```bash
+docker-compose ps
+```
+
+View service logs:
+```bash
+# All services
+docker-compose logs -f
+
+# Specific service
+docker-compose logs -f kafka
+docker-compose logs -f mysql
+```
+
+Stop infrastructure:
+```bash
+docker-compose down
+
+# Stop and remove volumes
+docker-compose down -v
+```
 
 ### Startup Order
 
