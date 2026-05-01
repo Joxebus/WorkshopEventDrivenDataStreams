@@ -13,7 +13,8 @@
     <div class="mb-6 flex items-center gap-4">
         <label for="categoryFilter" class="text-sm font-semibold text-gray-700">Filter by Category:</label>
         <select id="categoryFilter"
-                onchange="window.location.href='/products?page=0&size=' + [[${pageSize}]] + '&category=' + this.value"
+                th:data-page-size="${pageSize}"
+                onchange="filterByCategory(this)"
                 class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="All" th:selected="${selectedCategory == 'All'}">All Categories</option>
             <option th:each="cat : ${categories}"
@@ -27,6 +28,14 @@
             Showing: <span class="font-semibold" th:text="${selectedCategory}"></span>
         </span>
     </div>
+
+    <script th:inline="javascript">
+        function filterByCategory(selectElement) {
+            var pageSize = selectElement.getAttribute('data-page-size');
+            var category = selectElement.value;
+            window.location.href = '/products?page=0&size=' + pageSize + '&category=' + category;
+        }
+    </script>
 
     <div th:if="${products.isEmpty()}" class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
         <span th:if="${selectedCategory == 'All'}">No products available. Create your first product!</span>
@@ -130,7 +139,8 @@
         <!-- Page Size Selector -->
         <div class="mt-4 flex justify-center items-center space-x-2">
             <span class="text-sm text-gray-600">Items per page:</span>
-            <select onchange="window.location.href='/products?page=0&size=' + this.value + '&category=' + [[${selectedCategory != 'All' ? selectedCategory : ''}]]"
+            <select th:data-category="${selectedCategory}"
+                    onchange="changePageSize(this)"
                     class="px-3 py-1 border border-gray-300 rounded">
                 <option th:value="10" th:selected="${pageSize == 10}">10</option>
                 <option th:value="20" th:selected="${pageSize == 20}">20</option>
@@ -138,6 +148,18 @@
                 <option th:value="100" th:selected="${pageSize == 100}">100</option>
             </select>
         </div>
+
+        <script th:inline="javascript">
+            function changePageSize(selectElement) {
+                var category = selectElement.getAttribute('data-category');
+                var size = selectElement.value;
+                var url = '/products?page=0&size=' + size;
+                if (category && category !== 'All') {
+                    url += '&category=' + category;
+                }
+                window.location.href = url;
+            }
+        </script>
     </div>
 </div>
 </body>
