@@ -95,9 +95,20 @@ function updateCartCount() {
             var cartCountElement = document.getElementById('cart-count');
             if (cartCountElement) {
                 cartCountElement.textContent = data.count;
+                // Show badge if count > 0, hide if 0
+                if (data.count > 0) {
+                    cartCountElement.classList.remove('hidden');
+                } else {
+                    cartCountElement.classList.add('hidden');
+                }
             }
         })
         .catch(function(error) {
             console.error('Error updating cart count:', error);
         });
 }
+
+// Initialize cart count on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateCartCount();
+});

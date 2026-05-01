@@ -17,7 +17,13 @@
                 <div class="space-x-6">
                     <a href="/products" class="hover:text-blue-200 transition">Products</a>
                     <a href="/orders" class="hover:text-blue-200 transition">Orders</a>
-                    <a href="/orders/purchase" class="hover:text-blue-200 transition">Cart</a>
+                    <a href="/orders/purchase" class="hover:text-blue-200 transition relative inline-flex items-center">
+                        Cart
+                        <span id="cart-count"
+                              class="hidden ml-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                            0
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
