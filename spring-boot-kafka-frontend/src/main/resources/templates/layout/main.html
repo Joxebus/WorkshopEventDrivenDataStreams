@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Spring Boot Kafka Workshop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold hover:text-blue-200">
+                    🛒 Kafka Workshop
+                </a>
+                <div class="space-x-6">
+                    <a href="/products" class="hover:text-blue-200 transition">Products</a>
+                    <a href="/orders" class="hover:text-blue-200 transition">Orders</a>
+                    <a href="/orders/purchase" class="hover:text-blue-200 transition">Cart</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div th:if="${message}" class="container mx-auto px-4 mt-4">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline" th:text="${message}"></span>
+        </div>
+    </div>
+    <div th:if="${error}" class="container mx-auto px-4 mt-4">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline" th:text="${error}"></span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div th:replace="~{::content}">
+            <!-- Content from child templates will be inserted here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <p>&copy; 2026 Spring Boot Kafka Workshop - Event-Driven Architecture Demo</p>
+    </footer>
+</body>
+</html>

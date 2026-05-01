@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: main}">
+<body>
+<div th:fragment="content">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Products</h1>
+        <a href="/products/new" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            + New Product
+        </a>
+    </div>
+
+    <div th:if="${products.isEmpty()}" class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+        No products available. Create your first product!
+    </div>
+
+    <div th:unless="${products.isEmpty()}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div th:each="product : ${products}" class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2" th:text="${product.name}">Product Name</h3>
+                <p class="text-gray-600 mb-4" th:text="${product.description}">Description</p>
+
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-blue-600" th:text="'$' + ${product.price}">$10.00</span>
+                </div>
+
+                <div class="mb-4">
+                    <span class="text-sm text-gray-600">Category: </span>
+                    <span class="text-sm font-semibold" th:text="${product.category}">Electronics</span>
+                </div>
+
+                <div class="mb-4">
+                    <span class="text-sm text-gray-600">Stock: </span>
+                    <span th:if="${product.stock > 10}" class="text-sm font-semibold text-green-600" th:text="${product.stock}">50</span>
+                    <span th:if="${product.stock <= 10 && product.stock > 0}" class="text-sm font-semibold text-yellow-600" th:text="${product.stock}">5</span>
+                    <span th:if="${product.stock == 0}" class="text-sm font-semibold text-red-600">Out of Stock</span>
+                </div>
+
+                <div class="flex space-x-2">
+                    <form th:action="@{/products/{id}/add-to-cart(id=${product.id})}" method="post" class="flex-1">
+                        <button type="submit"
+                                th:disabled="${product.stock == 0}"
+                                class="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded">
+                            Add to Cart
+                        </button>
+                    </form>
+                    <a th:href="@{/products/{id}/edit(id=${product.id})}"
+                       class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                        Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

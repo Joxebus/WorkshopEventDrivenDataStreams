@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: main}">
+<body>
+<div th:fragment="content">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">
+            Welcome to Spring Boot Kafka Workshop
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+            Event-Driven Architecture with Apache Kafka
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-12">
+            <a href="/products" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition">
+                <div class="text-5xl mb-4">📦</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Products</h2>
+                <p class="text-gray-600">Browse and manage the product catalog</p>
+            </a>
+
+            <a href="/orders" class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition">
+                <div class="text-5xl mb-4">📋</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Orders</h2>
+                <p class="text-gray-600">View your purchase orders and their status</p>
+            </a>
+        </div>
+
+        <div class="mt-16 max-w-2xl mx-auto">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Learning Topics</h3>
+            <ul class="text-left bg-white rounded-lg shadow-lg p-6 space-y-2">
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">✓</span>
+                    <span>Event Sourcing Principles</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">✓</span>
+                    <span>CQRS (Command Query Responsibility Segregation)</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">✓</span>
+                    <span>Asynchronous vs Synchronous Communication</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">✓</span>
+                    <span>Kafka Message Producers & Consumers</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

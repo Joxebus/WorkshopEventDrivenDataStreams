@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: spring-boot-kafka-frontend
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  thymeleaf:
+    cache: false
+
+server:
+  port: 8081
+
+backend:
+  api:
+    url: http://localhost:8080/api
