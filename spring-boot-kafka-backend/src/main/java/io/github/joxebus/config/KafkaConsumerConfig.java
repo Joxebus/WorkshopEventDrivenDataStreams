@@ -27,6 +27,7 @@ public class KafkaConsumerConfig {
     private String groupId;
 
     @Bean
+    @SuppressWarnings("deprecation")
     public ConsumerFactory<String, PurchaseOrderDTO> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
