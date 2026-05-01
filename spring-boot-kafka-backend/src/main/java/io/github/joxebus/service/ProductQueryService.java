@@ -4,6 +4,10 @@ import io.github.joxebus.dto.ProductDTO;
 import io.github.joxebus.entity.Product;
 import io.github.joxebus.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +25,12 @@ public class ProductQueryService {
         return productRepository.findAll().stream()
             .map(this::mapToDTO)
             .collect(Collectors.toList());
+    }
+
+    public Page<ProductDTO> getAllProductsPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        return productRepository.findAll(pageable)
+            .map(this::mapToDTO);
     }
 
     public ProductDTO getProductById(String id) {

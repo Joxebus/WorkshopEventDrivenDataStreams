@@ -1,5 +1,9 @@
 package io.github.joxebus.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.joxebus.dto.PageResponse;
 import io.github.joxebus.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +19,9 @@ public class ProductService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Value("${backend.api.url}")
     private String backendUrl;
 
@@ -22,6 +29,33 @@ public class ProductService {
         String url = backendUrl + "/products";
         ProductDTO[] products = restTemplate.getForObject(url, ProductDTO[].class);
         return products != null ? Arrays.asList(products) : List.of();
+    }
+
+    public PageResponse<ProductDTO> getAllProductsPaginated(int page, int size) {
+        String url = backendUrl + "/products/paginated?page=" + page + "&size=" + size;
+        try {
+            String response = restTemplate.getForObject(url, String.class);
+            JsonNode rootNode = objectMapper.readTree(response);
+
+            List<ProductDTO> content = objectMapper.convertValue(
+                rootNode.get("content"),
+                new TypeReference<List<ProductDTO>>() {}
+            );
+
+            PageResponse<ProductDTO> pageResponse = new PageResponse<>();
+            pageResponse.setContent(content);
+            pageResponse.setPageNumber(rootNode.get("number").asInt());
+            pageResponse.setPageSize(rootNode.get("size").asInt());
+            pageResponse.setTotalElements(rootNode.get("totalElements").asLong());
+            pageResponse.setTotalPages(rootNode.get("totalPages").asInt());
+            pageResponse.setFirst(rootNode.get("first").asBoolean());
+            pageResponse.setLast(rootNode.get("last").asBoolean());
+            pageResponse.setEmpty(rootNode.get("empty").asBoolean());
+
+            return pageResponse;
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching paginated products", e);
+        }
     }
 
     public ProductDTO getProductById(String id) {

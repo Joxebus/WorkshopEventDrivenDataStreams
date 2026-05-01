@@ -13,42 +13,107 @@
         No products available. Create your first product!
     </div>
 
-    <div th:unless="${products.isEmpty()}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div th:each="product : ${products}" class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div class="p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-2" th:text="${product.name}">Product Name</h3>
-                <p class="text-gray-600 mb-4" th:text="${product.description}">Description</p>
+    <div th:unless="${products.isEmpty()}">
+        <div class="mb-4 text-sm text-gray-600">
+            Showing <span class="font-semibold" th:text="${#lists.size(products)}">20</span> of
+            <span class="font-semibold" th:text="${totalElements}">100</span> products
+        </div>
 
-                <div class="mb-4">
-                    <span class="text-2xl font-bold text-blue-600" th:text="'$' + ${product.price}">$10.00</span>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="product : ${products}" class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" th:text="${product.name}">Product Name</h3>
+                    <p class="text-gray-600 mb-4" th:text="${product.description}">Description</p>
 
-                <div class="mb-4">
-                    <span class="text-sm text-gray-600">Category: </span>
-                    <span class="text-sm font-semibold" th:text="${product.category}">Electronics</span>
-                </div>
+                    <div class="mb-4">
+                        <span class="text-2xl font-bold text-blue-600" th:text="'$' + ${product.price}">$10.00</span>
+                    </div>
 
-                <div class="mb-4">
-                    <span class="text-sm text-gray-600">Stock: </span>
-                    <span th:if="${product.stock > 10}" class="text-sm font-semibold text-green-600" th:text="${product.stock}">50</span>
-                    <span th:if="${product.stock <= 10 && product.stock > 0}" class="text-sm font-semibold text-yellow-600" th:text="${product.stock}">5</span>
-                    <span th:if="${product.stock == 0}" class="text-sm font-semibold text-red-600">Out of Stock</span>
-                </div>
+                    <div class="mb-4">
+                        <span class="text-sm text-gray-600">Category: </span>
+                        <span class="text-sm font-semibold" th:text="${product.category}">Electronics</span>
+                    </div>
 
-                <div class="flex space-x-2">
-                    <form th:action="@{/products/{id}/add-to-cart(id=${product.id})}" method="post" class="flex-1">
-                        <button type="submit"
-                                th:disabled="${product.stock == 0}"
-                                class="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded">
-                            Add to Cart
-                        </button>
-                    </form>
-                    <a th:href="@{/products/{id}/edit(id=${product.id})}"
-                       class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-                        Edit
-                    </a>
+                    <div class="mb-4">
+                        <span class="text-sm text-gray-600">Stock: </span>
+                        <span th:if="${product.stock > 10}" class="text-sm font-semibold text-green-600" th:text="${product.stock}">50</span>
+                        <span th:if="${product.stock <= 10 && product.stock > 0}" class="text-sm font-semibold text-yellow-600" th:text="${product.stock}">5</span>
+                        <span th:if="${product.stock == 0}" class="text-sm font-semibold text-red-600">Out of Stock</span>
+                    </div>
+
+                    <div class="flex space-x-2">
+                        <form th:action="@{/products/{id}/add-to-cart(id=${product.id})}" method="post" class="flex-1">
+                            <button type="submit"
+                                    th:disabled="${product.stock == 0}"
+                                    class="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded">
+                                Add to Cart
+                            </button>
+                        </form>
+                        <a th:href="@{/products/{id}/edit(id=${product.id})}"
+                           class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                            Edit
+                        </a>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="mt-8 flex justify-center items-center space-x-2">
+            <!-- First Page -->
+            <a th:if="${currentPage > 0}"
+               th:href="@{/products(page=0, size=${pageSize})}"
+               class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
+                &laquo; First
+            </a>
+
+            <!-- Previous Page -->
+            <a th:if="${currentPage > 0}"
+               th:href="@{/products(page=${currentPage - 1}, size=${pageSize})}"
+               class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
+                &lsaquo; Previous
+            </a>
+
+            <!-- Page Numbers -->
+            <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:if="${i >= currentPage - 2 && i <= currentPage + 2}">
+                <a th:if="${i != currentPage}"
+                   th:href="@{/products(page=${i}, size=${pageSize})}"
+                   th:text="${i + 1}"
+                   class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
+                    1
+                </a>
+                <span th:if="${i == currentPage}"
+                      th:text="${i + 1}"
+                      class="px-3 py-2 bg-blue-600 text-white border border-blue-600 rounded font-semibold">
+                    1
+                </span>
+            </span>
+
+            <!-- Next Page -->
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/products(page=${currentPage + 1}, size=${pageSize})}"
+               class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
+                Next &rsaquo;
+            </a>
+
+            <!-- Last Page -->
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/products(page=${totalPages - 1}, size=${pageSize})}"
+               class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">
+                Last &raquo;
+            </a>
+        </div>
+
+        <!-- Page Size Selector -->
+        <div class="mt-4 flex justify-center items-center space-x-2">
+            <span class="text-sm text-gray-600">Items per page:</span>
+            <select onchange="window.location.href='/products?page=0&size=' + this.value"
+                    class="px-3 py-1 border border-gray-300 rounded">
+                <option th:value="10" th:selected="${pageSize == 10}">10</option>
+                <option th:value="20" th:selected="${pageSize == 20}">20</option>
+                <option th:value="50" th:selected="${pageSize == 50}">50</option>
+                <option th:value="100" th:selected="${pageSize == 100}">100</option>
+            </select>
         </div>
     </div>
 </div>

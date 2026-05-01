@@ -1,5 +1,6 @@
 package io.github.joxebus.controller;
 
+import io.github.joxebus.dto.PageResponse;
 import io.github.joxebus.dto.ProductDTO;
 import io.github.joxebus.service.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -20,9 +21,15 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public String list(Model model) {
-        List<ProductDTO> products = productService.getAllProducts();
-        model.addAttribute("products", products);
+    public String list(@RequestParam(defaultValue = "0") int page,
+                      @RequestParam(defaultValue = "20") int size,
+                      Model model) {
+        PageResponse<ProductDTO> pageResponse = productService.getAllProductsPaginated(page, size);
+        model.addAttribute("products", pageResponse.getContent());
+        model.addAttribute("currentPage", pageResponse.getPageNumber());
+        model.addAttribute("totalPages", pageResponse.getTotalPages());
+        model.addAttribute("totalElements", pageResponse.getTotalElements());
+        model.addAttribute("pageSize", size);
         model.addAttribute("title", "Products");
         return "products/list";
     }

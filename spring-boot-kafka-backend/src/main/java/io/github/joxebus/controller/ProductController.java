@@ -4,6 +4,7 @@ import io.github.joxebus.dto.ProductDTO;
 import io.github.joxebus.service.ProductCommandService;
 import io.github.joxebus.service.ProductQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,14 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
         List<ProductDTO> products = productQueryService.getAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/paginated")
+    public ResponseEntity<Page<ProductDTO>> getAllProductsPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Page<ProductDTO> products = productQueryService.getAllProductsPaginated(page, size);
         return ResponseEntity.ok(products);
     }
 
