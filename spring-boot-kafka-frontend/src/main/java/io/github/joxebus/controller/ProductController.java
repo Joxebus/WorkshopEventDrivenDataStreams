@@ -5,13 +5,16 @@ import io.github.joxebus.dto.ProductDTO;
 import io.github.joxebus.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/products")
@@ -124,6 +127,68 @@ public class ProductController {
             redirectAttributes.addFlashAttribute("error", "Error adding product to cart: " + e.getMessage());
         }
         return "redirect:/products";
+    }
+
+    @PostMapping("/api/{id}/add-to-cart")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> addToCartAjax(@PathVariable String id,
+                                                              @RequestParam(defaultValue = "1") Integer quantity,
+                                                              HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            ProductDTO product = productService.getProductById(id);
+
+            @SuppressWarnings("unchecked")
+            List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new ArrayList<>();
+            }
+
+            // Check if product already in cart
+            boolean found = false;
+            for (CartItem item : cart) {
+                if (item.getProduct().getId().equals(id)) {
+                    item.setQuantity(item.getQuantity() + quantity);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                cart.add(new CartItem(product, quantity));
+            }
+
+            session.setAttribute("cart", cart);
+
+            // Calculate cart totals
+            int totalItems = cart.stream().mapToInt(CartItem::getQuantity).sum();
+            double totalPrice = cart.stream().mapToDouble(CartItem::getSubtotal).sum();
+
+            response.put("success", true);
+            response.put("message", "Product added to cart successfully");
+            response.put("cartItemCount", totalItems);
+            response.put("cartTotal", totalPrice);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Error adding product to cart: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @GetMapping("/api/cart/count")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getCartCount(HttpSession session) {
+        @SuppressWarnings("unchecked")
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        int count = 0;
+        if (cart != null) {
+            count = cart.stream().mapToInt(CartItem::getQuantity).sum();
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("count", count);
+        return ResponseEntity.ok(response);
     }
 
     // Inner class for cart items

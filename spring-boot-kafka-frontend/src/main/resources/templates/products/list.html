@@ -2,6 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: main}">
 <body>
 <div th:fragment="content">
+    <!-- Notification Toast -->
+    <div id="notification" class="hidden fixed top-4 right-4 z-50 max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+        <div class="p-4">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <svg id="notification-icon-success" class="h-6 w-6 text-green-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="notification-icon-error" class="h-6 w-6 text-red-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="ml-3 w-0 flex-1 pt-0.5">
+                    <p id="notification-message" class="text-sm font-medium text-gray-900"></p>
+                </div>
+                <div class="ml-4 flex-shrink-0 flex">
+                    <button onclick="closeNotification()" class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">Products</h1>
         <a href="/products/new" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -74,13 +101,12 @@
                     </div>
 
                     <div class="flex space-x-2">
-                        <form th:action="@{/products/{id}/add-to-cart(id=${product.id})}" method="post" class="flex-1">
-                            <button type="submit"
-                                    th:disabled="${product.stock == 0}"
-                                    class="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded">
-                                Add to Cart
-                            </button>
-                        </form>
+                        <button onclick="addToCart(this)"
+                                th:disabled="${product.stock == 0}"
+                                th:data-product-id="${product.id}"
+                                class="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded">
+                            Add to Cart
+                        </button>
                         <a th:href="@{/products/{id}/edit(id=${product.id})}"
                            class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                             Edit
@@ -158,6 +184,94 @@
                     url += '&category=' + category;
                 }
                 window.location.href = url;
+            }
+
+            function addToCart(button) {
+                var productId = button.getAttribute('data-product-id');
+
+                // Disable button and show loading state
+                button.disabled = true;
+                var originalText = button.textContent;
+                button.textContent = 'Adding...';
+
+                // Make AJAX call
+                fetch('/products/api/' + productId + '/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'quantity=1'
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    if (data.success) {
+                        showNotification(data.message, 'success');
+                        // Update cart count if there's a cart indicator
+                        updateCartCount();
+                    } else {
+                        showNotification(data.message, 'error');
+                    }
+                })
+                .catch(function(error) {
+                    showNotification('Error adding product to cart', 'error');
+                })
+                .finally(function() {
+                    // Re-enable button and restore original text
+                    button.disabled = false;
+                    button.textContent = originalText;
+                });
+            }
+
+            function showNotification(message, type) {
+                var notification = document.getElementById('notification');
+                var messageElement = document.getElementById('notification-message');
+                var successIcon = document.getElementById('notification-icon-success');
+                var errorIcon = document.getElementById('notification-icon-error');
+
+                // Set message
+                messageElement.textContent = message;
+
+                // Show appropriate icon
+                if (type === 'success') {
+                    successIcon.classList.remove('hidden');
+                    errorIcon.classList.add('hidden');
+                } else {
+                    successIcon.classList.add('hidden');
+                    errorIcon.classList.remove('hidden');
+                }
+
+                // Show notification
+                notification.classList.remove('hidden');
+
+                // Auto-hide after 3 seconds
+                setTimeout(function() {
+                    closeNotification();
+                }, 3000);
+            }
+
+            function closeNotification() {
+                var notification = document.getElementById('notification');
+                notification.classList.add('hidden');
+            }
+
+            function updateCartCount() {
+                // Fetch current cart count and update UI if cart indicator exists
+                fetch('/products/api/cart/count')
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        // If there's a cart count element in the layout, update it
+                        var cartCountElement = document.getElementById('cart-count');
+                        if (cartCountElement) {
+                            cartCountElement.textContent = data.count;
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('Error updating cart count:', error);
+                    });
             }
         </script>
     </div>
