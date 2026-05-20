@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Event-Driven Architecture and Data Streaming - Workshop by Omar Bautista">
+  <title>Event-Driven Architecture Workshop - Omar Bautista</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Preload Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Skip to content for accessibility -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="header-logo">
+          <span>⚡</span>
+          <span>Event-Driven Architecture Workshop</span>
+        </a>
+
+        <div class="header-actions">
+          <!-- Theme Toggle -->
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container">
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <h1 class="hero-title">Event-Driven Architecture and Data Streaming</h1>
+        <p class="hero-subtitle">Building Modern Distributed Systems with Apache Kafka and Spring Boot</p>
+        <p class="description">
+          This hands-on workshop demonstrates practical patterns for building event-driven systems. Learn CQRS, event sourcing, asynchronous messaging, and real-time data streaming through a complete Spring Boot application that simulates an e-commerce order processing system.
+        </p>
+      </section>
+
+      <!-- Presenter Section -->
+      <section class="presenter">
+        <div class="presenter-avatar">
+          👨‍💻
+        </div>
+        <div class="presenter-info">
+          <h3>Omar Bautista</h3>
+          <p class="presenter-title">Software Engineer</p>
+          <p class="presenter-bio">
+            As a Software Engineer, I am driven by my passion for technology and constantly seek opportunities to expand my skillset.
+            Currently, my expertise encompasses a range of technologies including Java, Spring, Spring Boot, Groovy, Grails, Hibernate,
+            Jenkins, Docker, Unit and Integration Testing, Spock Framework, and Relational Databases, among others. In addition to my
+            technical proficiency, I have gained valuable experience collaborating with both remote and on-site teams. I strongly believe
+            in the power of knowledge sharing and actively engage in exchanging insights with my peers, fostering a culture of continuous
+            self-improvement.
+          </p>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- What We'll Learn Section -->
+      <section class="content-section">
+        <h2 class="text-center">What We'll Learn During This Session</h2>
+        <div class="grid grid-2 mt-4">
+          <div class="card">
+            <div class="card-title">1. Event Sourcing Principles</div>
+            <p class="card-description">
+              Building systems around immutable event logs that capture state changes as a sequence of facts.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">2. CQRS Pattern</div>
+            <p class="card-description">
+              Separating read and write operations for scalability and maintainability using CommandService and QueryService patterns.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">3. Apache Kafka Fundamentals</div>
+            <p class="card-description">
+              Topics, producers, consumers, and message-driven architecture for distributed systems.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">4. Spring Boot Integration</div>
+            <p class="card-description">
+              Spring Kafka, REST APIs, JPA, and multi-module project structure for production-ready applications.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">5. Asynchronous Communication</div>
+            <p class="card-description">
+              When to use async messaging vs synchronous REST APIs and how to design hybrid systems effectively.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">6. Real-World Example</div>
+            <p class="card-description">
+              E-commerce order processing with dual communication patterns demonstrating practical implementation.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">7. Data Serialization</div>
+            <p class="card-description">
+              JSON vs Avro with Confluent Schema Registry for schema evolution and compatibility management.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">8. Testing Strategies</div>
+            <p class="card-description">
+              BDD-style testing with Spock Framework for event-driven systems and CQRS patterns.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Workshop Objectives -->
+      <section class="content-section">
+        <h2 class="text-center">Workshop Objectives</h2>
+        <div class="grid grid-2 mt-4">
+          <div class="card">
+            <div class="card-title">🎯 Understand Event-Driven Architecture</div>
+            <p class="card-description">
+              Learn core patterns like event sourcing, CQRS, and message-driven communication in distributed systems.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">🚀 Build Production-Ready Systems</div>
+            <p class="card-description">
+              Implement Spring Boot + Kafka applications with proper service separation, testing, and deployment strategies.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">🔄 Master Asynchronous Communication</div>
+            <p class="card-description">
+              Know when to use Kafka vs REST and how to design hybrid systems that leverage both patterns effectively.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">🏗️ Complete Hands-On Example</div>
+            <p class="card-description">
+              Work with a real multi-module application simulating order processing workflows with CQRS pattern.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section Navigation -->
+      <section class="content-section">
+        <h2 class="text-center mb-4">Workshop Sections</h2>
+        <div class="section-grid">
+
+          <!-- Section 1 -->
+          <a href="pages/event-sourcing.html" class="section-card">
+            <span class="section-number">1</span>
+            <div class="section-card-title">Event Sourcing Principles</div>
+            <p class="section-card-description">
+              Learn how to store state as immutable events and derive current state through event replay.
+            </p>
+          </a>
+
+          <!-- Section 2 -->
+          <a href="pages/cqrs.html" class="section-card">
+            <span class="section-number">2</span>
+            <div class="section-card-title">CQRS Pattern</div>
+            <p class="section-card-description">
+              Separate commands from queries with dedicated service layers for optimal scalability.
+            </p>
+          </a>
+
+          <!-- Section 3 -->
+          <a href="pages/kafka-basics.html" class="section-card">
+            <span class="section-number">3</span>
+            <div class="section-card-title">Apache Kafka Fundamentals</div>
+            <p class="section-card-description">
+              Understand topics, producers, consumers, partitions, and the Kafka distributed architecture.
+            </p>
+          </a>
+
+          <!-- Section 4 -->
+          <a href="pages/spring-boot-kafka.html" class="section-card">
+            <span class="section-number">4</span>
+            <div class="section-card-title">Spring Boot + Kafka Integration</div>
+            <p class="section-card-description">
+              Configure Spring Kafka producers and consumers with proper error handling and retry logic.
+            </p>
+          </a>
+
+          <!-- Section 5 -->
+          <a href="pages/async-communication.html" class="section-card">
+            <span class="section-number">5</span>
+            <div class="section-card-title">Asynchronous Communication</div>
+            <p class="section-card-description">
+              Learn when to use REST vs Kafka and design hybrid systems with both patterns.
+            </p>
+          </a>
+
+          <!-- Section 6 -->
+          <a href="pages/project-architecture.html" class="section-card">
+            <span class="section-number">6</span>
+            <div class="section-card-title">Project Architecture</div>
+            <p class="section-card-description">
+              Explore the multi-module Maven structure with common, backend, and frontend modules.
+            </p>
+          </a>
+
+          <!-- Section 7 -->
+          <a href="pages/real-world-example.html" class="section-card">
+            <span class="section-number">7</span>
+            <div class="section-card-title">Real-World Example: Order Processing</div>
+            <p class="section-card-description">
+              Follow a complete e-commerce order workflow from cart to fulfillment with Kafka.
+            </p>
+          </a>
+
+          <!-- Section 8 -->
+          <a href="pages/data-serialization.html" class="section-card">
+            <span class="section-number">8</span>
+            <div class="section-card-title">Data Serialization</div>
+            <p class="section-card-description">
+              Migrate from JSON to Avro serialization with schema evolution strategies.
+            </p>
+          </a>
+
+          <!-- Section 9 -->
+          <a href="pages/testing-patterns.html" class="section-card">
+            <span class="section-number">9</span>
+            <div class="section-card-title">Testing Patterns</div>
+            <p class="section-card-description">
+              Write BDD-style tests with Spock Framework for services and Kafka producers.
+            </p>
+          </a>
+
+          <!-- Section 10 -->
+          <a href="pages/docker-setup.html" class="section-card">
+            <span class="section-number">10</span>
+            <div class="section-card-title">Docker Setup</div>
+            <p class="section-card-description">
+              Configure Docker Compose for Kafka, Zookeeper, and MySQL with health checks.
+            </p>
+          </a>
+
+          <!-- Section 11 -->
+          <a href="pages/best-practices.html" class="section-card">
+            <span class="section-number">11</span>
+            <div class="section-card-title">Best Practices</div>
+            <p class="section-card-description">
+              Production considerations for event-driven systems including monitoring and schema evolution.
+            </p>
+          </a>
+
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Technology Stack -->
+      <section class="content-section text-center">
+        <h2 class="mb-4">Technology Stack</h2>
+        <div class="grid grid-3">
+          <div class="card">
+            <h3 class="badge badge-event-sourcing">Backend</h3>
+            <p class="mt-2">Spring Boot 4.0.6 • Java 25 • Spring Kafka • MySQL 8.x • Spring Data JPA</p>
+          </div>
+          <div class="card">
+            <h3 class="badge badge-cqrs">Frontend</h3>
+            <p class="mt-2">Thymeleaf • Tailwind CSS • JavaScript</p>
+          </div>
+          <div class="card">
+            <h3 class="badge badge-kafka">Infrastructure</h3>
+            <p class="mt-2">Apache Kafka 3.x • Zookeeper • Docker Compose • Maven 3.x</p>
+          </div>
+        </div>
+        <p class="mt-4 text-secondary">
+          All open source • Production ready • Multi-module Maven structure
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-nav">
+    <div class="container">
+      <div class="footer-nav-content">
+        <div style="width: 200px;"></div>
+        <a href="pages/event-sourcing.html" class="footer-nav-button primary">
+          <div>
+            <div class="footer-nav-label">Start Workshop</div>
+            <div class="footer-nav-title">Event Sourcing Principles →</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/theme-toggle.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/progress.js"></script>
+</body>
+</html>

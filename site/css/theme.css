@@ -1,0 +1,158 @@
+/* Theme Variables for Light and Dark Modes */
+
+:root {
+  /* Light Theme (Default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  --border-color: #e5e7eb;
+  --border-hover: #d1d5db;
+
+  /* Brand Colors */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-secondary: #10b981;
+  --color-secondary-hover: #059669;
+  --color-accent: #f59e0b;
+  --color-accent-hover: #d97706;
+  --color-purple: #8b5cf6;
+  --color-purple-hover: #7c3aed;
+
+  /* Component Colors (Event-Driven Architecture Pillars) */
+  --color-event-sourcing: #2196F3;
+  --color-cqrs: #4CAF50;
+  --color-kafka: #FF9800;
+  --color-testing: #9C27B0;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  /* Code blocks */
+  --code-bg: #f3f4f6;
+  --code-text: #1f2937;
+
+  /* Success/Warning/Error */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --border-color: #334155;
+  --border-hover: #475569;
+
+  /* Brand Colors (adjusted for dark) */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #60a5fa;
+  --color-secondary: #34d399;
+  --color-secondary-hover: #6ee7b7;
+  --color-accent: #fbbf24;
+  --color-accent-hover: #fcd34d;
+  --color-purple: #a78bfa;
+  --color-purple-hover: #c4b5fd;
+
+  /* Component Colors (Event-Driven Architecture Pillars - adjusted) */
+  --color-event-sourcing: #3b82f6;
+  --color-cqrs: #34d399;
+  --color-kafka: #fbbf24;
+  --color-testing: #a78bfa;
+
+  /* Shadows (darker) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+
+  /* Code blocks */
+  --code-bg: #1e293b;
+  --code-text: #e2e8f0;
+
+  /* Success/Warning/Error (adjusted) */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-error: #f87171;
+}
+
+/* Smooth transition for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Prevent transition on page load */
+.no-transition * {
+  transition: none !important;
+}
+
+/* Base styles using theme variables */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Utility classes for themed elements */
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.border-themed {
+  border-color: var(--border-color);
+}
+
+/* Pillar color badges */
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge-event-sourcing {
+  background-color: var(--color-event-sourcing);
+  color: white;
+}
+
+.badge-cqrs {
+  background-color: var(--color-cqrs);
+  color: white;
+}
+
+.badge-kafka {
+  background-color: var(--color-kafka);
+  color: white;
+}
+
+.badge-testing {
+  background-color: var(--color-testing);
+  color: white;
+}
