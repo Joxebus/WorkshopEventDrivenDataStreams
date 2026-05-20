@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Practices - Event-Driven Architecture Workshop</title>
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../index.html" class="header-logo"><span>⚡</span><span>Event-Driven Architecture Workshop</span></a>
+        <div class="header-actions">
+          <div class="progress-indicator">
+            <span id="progress-text">Page 11 of 11</span>
+            <div class="progress-bar"><div id="progress-bar-fill" class="progress-bar-fill" style="width: 100%"></div></div>
+          </div>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/></svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z"/></svg>
+          </button>
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="nav-toggle-line"></span><span class="nav-toggle-line"></span><span class="nav-toggle-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav id="nav-menu" class="nav-menu">
+    <div class="nav-menu-content">
+      <h3 class="nav-menu-title">Workshop Sections</h3>
+      <ul class="nav-menu-list">
+        <li class="nav-menu-item"><a href="../index.html" class="nav-menu-link">Home</a></li>
+        <li class="nav-menu-item"><a href="event-sourcing.html" class="nav-menu-link">1. Event Sourcing</a></li>
+        <li class="nav-menu-item"><a href="cqrs.html" class="nav-menu-link">2. CQRS Pattern</a></li>
+        <li class="nav-menu-item"><a href="kafka-basics.html" class="nav-menu-link">3. Kafka Fundamentals</a></li>
+        <li class="nav-menu-item"><a href="spring-boot-kafka.html" class="nav-menu-link">4. Spring Boot + Kafka</a></li>
+        <li class="nav-menu-item"><a href="async-communication.html" class="nav-menu-link">5. Async Communication</a></li>
+        <li class="nav-menu-item"><a href="project-architecture.html" class="nav-menu-link">6. Project Architecture</a></li>
+        <li class="nav-menu-item"><a href="real-world-example.html" class="nav-menu-link">7. Order Processing</a></li>
+        <li class="nav-menu-item"><a href="data-serialization.html" class="nav-menu-link">8. Data Serialization</a></li>
+        <li class="nav-menu-item"><a href="testing-patterns.html" class="nav-menu-link">9. Testing Patterns</a></li>
+        <li class="nav-menu-item"><a href="docker-setup.html" class="nav-menu-link">10. Docker Setup</a></li>
+        <li class="nav-menu-item"><a href="best-practices.html" class="nav-menu-link">11. Best Practices</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id="nav-overlay" class="nav-overlay"></div>
+
+  <main id="main-content">
+    <div class="container">
+      <h1>Best Practices</h1>
+      <p class="description">Production considerations for event-driven systems including monitoring, schema evolution, and reliability patterns.</p>
+
+      <section class="content-section">
+        <h2>Architecture Patterns</h2>
+
+        <h3>Use CQRS for Complex Domains</h3>
+        <p>Separate command and query models when read and write requirements differ significantly. This enables independent scaling and optimization of each side.</p>
+
+        <h3>Event Sourcing for Audit Trails</h3>
+        <p>Store state as events when you need complete audit trails, time-travel debugging, or the ability to rebuild state from history.</p>
+
+        <h3>Idempotent Consumers</h3>
+        <p>Design consumers to handle duplicate messages safely. Use unique message IDs to detect and skip duplicates.</p>
+        <pre><code>@KafkaListener
+public void consume(PurchaseOrderDTO order) {
+    if (orderRepository.existsById(order.getOrderId())) {
+        log.info("Duplicate order, skipping: {}", order.getOrderId());
+        return;
+    }
+    processOrder(order);
+}</code></pre>
+      </section>
+
+      <section class="content-section">
+        <h2>Kafka Best Practices</h2>
+
+        <h3>Partition by Business Key</h3>
+        <p>Partition messages by customerId, orderId, or other business keys to maintain ordering within a logical group.</p>
+        <pre><code>kafkaTemplate.send("purchase-orders", order.getCustomerId(), order);</code></pre>
+
+        <h3>Use Consumer Groups</h3>
+        <p>Enable horizontal scaling by adding consumers to the same group. Kafka distributes partitions across group members.</p>
+
+        <h3>Monitor Consumer Lag</h3>
+        <p>Track how far behind consumers are from the latest message. High lag indicates processing bottlenecks.</p>
+
+        <h3>Plan for Schema Evolution</h3>
+        <p>Use Avro with Schema Registry for backward/forward compatibility. Design schemas to evolve without breaking consumers.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Testing Strategies</h2>
+
+        <h3>Unit Test Services with Mocks</h3>
+        <p>Test business logic independently by mocking repositories and external dependencies.</p>
+
+        <h3>Integration Test with Embedded Kafka</h3>
+        <p>Use @EmbeddedKafka for testing producer/consumer interactions end-to-end.</p>
+
+        <h3>Test Error Scenarios</h3>
+        <p>Verify retry logic, dead letter topics, and error handling work correctly.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Production Considerations</h2>
+
+        <h3>Authentication and Authorization</h3>
+        <p>Add proper security with Spring Security, OAuth2, or JWT tokens. This workshop uses simplified security for learning.</p>
+
+        <h3>Monitoring and Alerting</h3>
+        <ul>
+          <li>Consumer lag metrics</li>
+          <li>Message processing rates</li>
+          <li>Error rates and dead letter queue monitoring</li>
+          <li>System health checks</li>
+        </ul>
+
+        <h3>Separate Read/Write Databases</h3>
+        <p>For high-scale systems, use separate databases optimized for each workload:</p>
+        <ul>
+          <li><strong>Write DB:</strong> PostgreSQL/MySQL for transactional consistency</li>
+          <li><strong>Read DB:</strong> Elasticsearch/MongoDB for query performance</li>
+          <li><strong>Sync:</strong> Kafka events to propagate changes</li>
+        </ul>
+
+        <h3>Configure Retention Policies</h3>
+        <p>Set appropriate retention for Kafka topics based on use case:</p>
+        <ul>
+          <li><strong>Event logs:</strong> Long retention (30-90 days or infinite)</li>
+          <li><strong>Transient messages:</strong> Short retention (1-7 days)</li>
+          <li><strong>Compacted topics:</strong> Keep latest value per key</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Reliability Patterns</h2>
+
+        <h3>Retries with Exponential Backoff</h3>
+        <p>Retry failed operations with increasing delays to handle transient failures.</p>
+
+        <h3>Circuit Breakers</h3>
+        <p>Prevent cascading failures by stopping requests to failing services temporarily.</p>
+
+        <h3>Dead Letter Topics</h3>
+        <p>Send messages that fail after max retries to a dead letter topic for manual investigation.</p>
+
+        <h3>Health Checks</h3>
+        <p>Implement health endpoints that verify connectivity to Kafka, databases, and other dependencies.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Summary</h2>
+        <p>Building production-ready event-driven systems requires careful attention to:</p>
+        <ul>
+          <li>Idempotency and retry handling</li>
+          <li>Schema evolution and compatibility</li>
+          <li>Monitoring and observability</li>
+          <li>Security and authentication</li>
+          <li>Scalability and performance</li>
+        </ul>
+        <p>This workshop provides a foundation for understanding these patterns. Apply these principles when building real-world systems.</p>
+      </section>
+
+      <div class="key-takeaways">
+        <h3>Key Takeaways</h3>
+        <ul>
+          <li>Design for idempotency and retries from day one</li>
+          <li>Monitor consumer lag continuously</li>
+          <li>Plan schema evolution before going to production</li>
+          <li>Test failure scenarios thoroughly</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer-nav">
+    <div class="container">
+      <div class="footer-nav-content">
+        <a href="docker-setup.html" class="footer-nav-button">
+          <div><div class="footer-nav-label">Previous</div><div class="footer-nav-title">← Docker Setup</div></div>
+        </a>
+        <a href="../index.html" class="footer-nav-button primary">
+          <div><div class="footer-nav-label">Complete</div><div class="footer-nav-title">Back to Home →</div></div>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/theme-toggle.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/progress.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Serialization - Event-Driven Architecture Workshop</title>
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../index.html" class="header-logo"><span>⚡</span><span>Event-Driven Architecture Workshop</span></a>
+        <div class="header-actions">
+          <div class="progress-indicator">
+            <span id="progress-text">Page 8 of 11</span>
+            <div class="progress-bar"><div id="progress-bar-fill" class="progress-bar-fill" style="width: 73%"></div></div>
+          </div>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/></svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z"/></svg>
+          </button>
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="nav-toggle-line"></span><span class="nav-toggle-line"></span><span class="nav-toggle-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav id="nav-menu" class="nav-menu">
+    <div class="nav-menu-content">
+      <h3 class="nav-menu-title">Workshop Sections</h3>
+      <ul class="nav-menu-list">
+        <li class="nav-menu-item"><a href="../index.html" class="nav-menu-link">Home</a></li>
+        <li class="nav-menu-item"><a href="event-sourcing.html" class="nav-menu-link">1. Event Sourcing</a></li>
+        <li class="nav-menu-item"><a href="cqrs.html" class="nav-menu-link">2. CQRS Pattern</a></li>
+        <li class="nav-menu-item"><a href="kafka-basics.html" class="nav-menu-link">3. Kafka Fundamentals</a></li>
+        <li class="nav-menu-item"><a href="spring-boot-kafka.html" class="nav-menu-link">4. Spring Boot + Kafka</a></li>
+        <li class="nav-menu-item"><a href="async-communication.html" class="nav-menu-link">5. Async Communication</a></li>
+        <li class="nav-menu-item"><a href="project-architecture.html" class="nav-menu-link">6. Project Architecture</a></li>
+        <li class="nav-menu-item"><a href="real-world-example.html" class="nav-menu-link">7. Order Processing</a></li>
+        <li class="nav-menu-item"><a href="data-serialization.html" class="nav-menu-link">8. Data Serialization</a></li>
+        <li class="nav-menu-item"><a href="testing-patterns.html" class="nav-menu-link">9. Testing Patterns</a></li>
+        <li class="nav-menu-item"><a href="docker-setup.html" class="nav-menu-link">10. Docker Setup</a></li>
+        <li class="nav-menu-item"><a href="best-practices.html" class="nav-menu-link">11. Best Practices</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id="nav-overlay" class="nav-overlay"></div>
+
+  <main id="main-content">
+    <div class="container">
+      <h1>Data Serialization</h1>
+      <p class="description">Migrating from JSON to Avro serialization with Confluent Schema Registry for better schema evolution and compatibility.</p>
+
+      <section class="content-section">
+        <h2>Phase 1: JSON Serialization (Current)</h2>
+        <h3>Configuration</h3>
+        <pre><code>spring.kafka.producer.value-serializer=JsonSerializer
+spring.kafka.consumer.value-deserializer=JsonDeserializer</code></pre>
+
+        <h3>Benefits</h3>
+        <ul>
+          <li><strong>Human-Readable:</strong> Easy to debug and inspect messages</li>
+          <li><strong>Simple Setup:</strong> No additional infrastructure required</li>
+          <li><strong>Flexibility:</strong> Dynamic schema, no code generation</li>
+        </ul>
+
+        <h3>Limitations</h3>
+        <ul>
+          <li><strong>No Schema Enforcement:</strong> Producers and consumers must agree on structure manually</li>
+          <li><strong>Larger Message Size:</strong> JSON is verbose compared to binary formats</li>
+          <li><strong>Schema Evolution Challenges:</strong> Breaking changes can cause consumer failures</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Phase 2: Avro Serialization (Future)</h2>
+        <h3>What is Avro?</h3>
+        <p>Apache Avro is a data serialization system that provides:</p>
+        <ul>
+          <li>Compact binary format</li>
+          <li>Schema defined in JSON</li>
+          <li>Code generation for type safety</li>
+          <li>Schema evolution with backward/forward compatibility</li>
+        </ul>
+
+        <h3>Confluent Schema Registry</h3>
+        <p>Centralized repository for managing Avro schemas:</p>
+        <ul>
+          <li>Store and version schemas</li>
+          <li>Enforce compatibility rules</li>
+          <li>Automatic schema validation</li>
+          <li>Schema evolution support</li>
+        </ul>
+
+        <h3>Configuration</h3>
+        <pre><code>spring.kafka.producer.value-serializer=KafkaAvroSerializer
+spring.kafka.consumer.value-deserializer=KafkaAvroDeserializer
+spring.kafka.properties.schema.registry.url=http://localhost:8081</code></pre>
+      </section>
+
+      <section class="content-section">
+        <h2>Schema Evolution Strategies</h2>
+
+        <h3>Backward Compatibility</h3>
+        <p>New schema can read data written with old schema. Add optional fields only.</p>
+
+        <h3>Forward Compatibility</h3>
+        <p>Old schema can read data written with new schema. Remove optional fields only.</p>
+
+        <h3>Full Compatibility</h3>
+        <p>Both backward and forward compatible. Most restrictive but safest.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Migration Strategy</h2>
+        <ol>
+          <li><strong>Setup Schema Registry:</strong> Deploy Confluent Schema Registry</li>
+          <li><strong>Define Avro Schemas:</strong> Create .avsc files for DTOs</li>
+          <li><strong>Dual Write:</strong> Produce to both JSON and Avro topics temporarily</li>
+          <li><strong>Consumer Migration:</strong> Update consumers to read from Avro topic</li>
+          <li><strong>Producer Migration:</strong> Switch producers to Avro-only</li>
+          <li><strong>Cleanup:</strong> Remove JSON topic after validation</li>
+        </ol>
+      </section>
+
+      <div class="key-takeaways">
+        <h3>Key Takeaways</h3>
+        <ul>
+          <li>JSON is simple but lacks schema enforcement</li>
+          <li>Avro provides compact format with schema evolution</li>
+          <li>Schema Registry manages schema versions centrally</li>
+          <li>Migration requires careful planning and dual-write strategy</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer-nav">
+    <div class="container">
+      <div class="footer-nav-content">
+        <a href="real-world-example.html" class="footer-nav-button">
+          <div><div class="footer-nav-label">Previous</div><div class="footer-nav-title">← Order Processing</div></div>
+        </a>
+        <a href="testing-patterns.html" class="footer-nav-button primary">
+          <div><div class="footer-nav-label">Next</div><div class="footer-nav-title">Testing Patterns →</div></div>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/theme-toggle.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/progress.js"></script>
+</body>
+</html>

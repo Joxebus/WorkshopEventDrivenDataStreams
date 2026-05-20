@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testing Patterns - Event-Driven Architecture Workshop</title>
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../index.html" class="header-logo"><span>⚡</span><span>Event-Driven Architecture Workshop</span></a>
+        <div class="header-actions">
+          <div class="progress-indicator">
+            <span id="progress-text">Page 9 of 11</span>
+            <div class="progress-bar"><div id="progress-bar-fill" class="progress-bar-fill" style="width: 82%"></div></div>
+          </div>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/></svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z"/></svg>
+          </button>
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="nav-toggle-line"></span><span class="nav-toggle-line"></span><span class="nav-toggle-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav id="nav-menu" class="nav-menu">
+    <div class="nav-menu-content">
+      <h3 class="nav-menu-title">Workshop Sections</h3>
+      <ul class="nav-menu-list">
+        <li class="nav-menu-item"><a href="../index.html" class="nav-menu-link">Home</a></li>
+        <li class="nav-menu-item"><a href="event-sourcing.html" class="nav-menu-link">1. Event Sourcing</a></li>
+        <li class="nav-menu-item"><a href="cqrs.html" class="nav-menu-link">2. CQRS Pattern</a></li>
+        <li class="nav-menu-item"><a href="kafka-basics.html" class="nav-menu-link">3. Kafka Fundamentals</a></li>
+        <li class="nav-menu-item"><a href="spring-boot-kafka.html" class="nav-menu-link">4. Spring Boot + Kafka</a></li>
+        <li class="nav-menu-item"><a href="async-communication.html" class="nav-menu-link">5. Async Communication</a></li>
+        <li class="nav-menu-item"><a href="project-architecture.html" class="nav-menu-link">6. Project Architecture</a></li>
+        <li class="nav-menu-item"><a href="real-world-example.html" class="nav-menu-link">7. Order Processing</a></li>
+        <li class="nav-menu-item"><a href="data-serialization.html" class="nav-menu-link">8. Data Serialization</a></li>
+        <li class="nav-menu-item"><a href="testing-patterns.html" class="nav-menu-link">9. Testing Patterns</a></li>
+        <li class="nav-menu-item"><a href="docker-setup.html" class="nav-menu-link">10. Docker Setup</a></li>
+        <li class="nav-menu-item"><a href="best-practices.html" class="nav-menu-link">11. Best Practices</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id="nav-overlay" class="nav-overlay"></div>
+
+  <main id="main-content">
+    <div class="container">
+      <h1>Testing Patterns</h1>
+      <p class="description">BDD-style testing with Spock Framework for event-driven systems, CQRS services, and Kafka producers.</p>
+
+      <section class="content-section">
+        <h2>Spock Framework</h2>
+        <p><strong>Version:</strong> Spock 2.4-M7 with Groovy 5.0.0-alpha-11 (Java 25 compatible)</p>
+        <p>Spock is a testing framework for Java and Groovy applications that combines:</p>
+        <ul>
+          <li>BDD-style Given-When-Then syntax</li>
+          <li>Built-in mocking with Mock() and Stub()</li>
+          <li>Expressive assertions and data-driven tests</li>
+          <li>Integration with Spring Boot</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Test Structure</h2>
+        <h3>Backend Tests (27 tests)</h3>
+        <ul>
+          <li><strong>ProductCommandServiceSpec</strong> (7 tests): Product creation, update, deletion, stock management</li>
+          <li><strong>ProductQueryServiceSpec</strong> (7 tests): Product queries and searches</li>
+          <li><strong>OrderCommandServiceSpec</strong> (5 tests): Order creation and processing</li>
+          <li><strong>OrderQueryServiceSpec</strong> (7 tests): Order queries by ID, customer, status</li>
+          <li><strong>ApplicationSpec</strong> (1 test): Application context test</li>
+        </ul>
+
+        <h3>Frontend Tests (12 tests)</h3>
+        <ul>
+          <li><strong>ProductServiceSpec</strong> (6 tests): REST client product operations</li>
+          <li><strong>OrderServiceSpec</strong> (3 tests): REST client order queries</li>
+          <li><strong>PurchaseOrderProducerSpec</strong> (2 tests): Kafka message publishing</li>
+          <li><strong>ApplicationSpec</strong> (1 test): Application context test</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Example: ProductCommandServiceSpec</h2>
+        <pre><code>class ProductCommandServiceSpec extends Specification {
+    ProductRepository productRepository = Mock()
+    ProductCommandService service = new ProductCommandService(productRepository)
+
+    def "should create product with valid data"() {
+        given: "a valid product DTO"
+        def productDTO = new ProductDTO(
+            name: "Laptop",
+            price: 999.99,
+            stock: 10
+        )
+
+        when: "creating the product"
+        service.createProduct(productDTO)
+
+        then: "repository save is called once"
+        1 * productRepository.save(_) >> { Product product ->
+            assert product.name == "Laptop"
+            assert product.price == 999.99
+            product
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section class="content-section">
+        <h2>Example: PurchaseOrderProducerSpec</h2>
+        <pre><code>class PurchaseOrderProducerSpec extends Specification {
+    KafkaTemplate kafkaTemplate = Mock()
+    PurchaseOrderProducer producer = new PurchaseOrderProducer(kafkaTemplate)
+
+    def "should send order to correct Kafka topic"() {
+        given: "a purchase order"
+        def order = new PurchaseOrderDTO(
+            orderId: "ORDER-123",
+            total: 100.0
+        )
+
+        when: "sending the order"
+        producer.sendOrder(order)
+
+        then: "kafka template sends to purchase-orders topic"
+        1 * kafkaTemplate.send("purchase-orders", "ORDER-123", order)
+    }
+}</code></pre>
+      </section>
+
+      <section class="content-section">
+        <h2>Running Tests</h2>
+        <pre><code># Run all tests
+mvn test
+
+# Run backend tests only
+cd spring-boot-kafka-backend && mvn test
+
+# Run frontend tests only
+cd spring-boot-kafka-frontend && mvn test
+
+# Run specific test class
+mvn test -Dtest=ProductCommandServiceSpec</code></pre>
+      </section>
+
+      <section class="content-section">
+        <h2>Java 25 Compatibility</h2>
+        <p>The project uses Groovy 5.0.0-alpha-11, which supports Java 25 bytecode (major version 69). Earlier versions of Groovy do not support Java 25.</p>
+        <p><strong>Maven Configuration:</strong></p>
+        <pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.codehaus.gmavenplus&lt;/groupId&gt;
+    &lt;artifactId&gt;gmavenplus-plugin&lt;/artifactId&gt;
+    &lt;version&gt;4.0.1&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;skipBytecodeCheck&gt;true&lt;/skipBytecodeCheck&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+      </section>
+
+      <div class="key-takeaways">
+        <h3>Key Takeaways</h3>
+        <ul>
+          <li>Spock provides expressive BDD-style tests</li>
+          <li>Mock repositories and external dependencies</li>
+          <li>Test CQRS services independently</li>
+          <li>Verify Kafka message publishing with mocks</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer-nav">
+    <div class="container">
+      <div class="footer-nav-content">
+        <a href="data-serialization.html" class="footer-nav-button">
+          <div><div class="footer-nav-label">Previous</div><div class="footer-nav-title">← Data Serialization</div></div>
+        </a>
+        <a href="docker-setup.html" class="footer-nav-button primary">
+          <div><div class="footer-nav-label">Next</div><div class="footer-nav-title">Docker Setup →</div></div>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/theme-toggle.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/progress.js"></script>
+</body>
+</html>

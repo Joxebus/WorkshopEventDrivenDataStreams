@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apache Kafka Fundamentals - Event-Driven Architecture Workshop">
+  <title>Apache Kafka Fundamentals - Event-Driven Architecture Workshop</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <!-- Preload Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../index.html" class="header-logo">
+          <span>⚡</span>
+          <span>Event-Driven Architecture Workshop</span>
+        </a>
+
+        <div class="header-actions">
+          <div class="progress-indicator">
+            <span id="progress-text" class="progress-text">Page 3 of 11</span>
+            <div class="progress-bar">
+              <div id="progress-bar-fill" class="progress-bar-fill" style="width: 27%"></div>
+            </div>
+          </div>
+
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z"/>
+            </svg>
+          </button>
+
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav id="nav-menu" class="nav-menu">
+    <div class="nav-menu-content">
+      <h3 class="nav-menu-title">Workshop Sections</h3>
+      <ul class="nav-menu-list">
+        <li class="nav-menu-item"><a href="../index.html" class="nav-menu-link">Home</a></li>
+        <li class="nav-menu-item"><a href="event-sourcing.html" class="nav-menu-link">1. Event Sourcing</a></li>
+        <li class="nav-menu-item"><a href="cqrs.html" class="nav-menu-link">2. CQRS Pattern</a></li>
+        <li class="nav-menu-item"><a href="kafka-basics.html" class="nav-menu-link">3. Kafka Fundamentals</a></li>
+        <li class="nav-menu-item"><a href="spring-boot-kafka.html" class="nav-menu-link">4. Spring Boot + Kafka</a></li>
+        <li class="nav-menu-item"><a href="async-communication.html" class="nav-menu-link">5. Async Communication</a></li>
+        <li class="nav-menu-item"><a href="project-architecture.html" class="nav-menu-link">6. Project Architecture</a></li>
+        <li class="nav-menu-item"><a href="real-world-example.html" class="nav-menu-link">7. Order Processing</a></li>
+        <li class="nav-menu-item"><a href="data-serialization.html" class="nav-menu-link">8. Data Serialization</a></li>
+        <li class="nav-menu-item"><a href="testing-patterns.html" class="nav-menu-link">9. Testing Patterns</a></li>
+        <li class="nav-menu-item"><a href="docker-setup.html" class="nav-menu-link">10. Docker Setup</a></li>
+        <li class="nav-menu-item"><a href="best-practices.html" class="nav-menu-link">11. Best Practices</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="nav-overlay" class="nav-overlay"></div>
+
+  <main id="main-content">
+    <div class="container">
+
+      <h1>Apache Kafka Fundamentals</h1>
+      <p class="description">
+        Apache Kafka is a distributed streaming platform and message broker that enables building real-time event-driven applications at scale.
+      </p>
+
+      <section class="content-section">
+        <h2>What is Apache Kafka?</h2>
+        <p>
+          Apache Kafka is a <strong>distributed commit log</strong> and streaming platform. Think of it as a highly scalable, fault-tolerant messaging system that can handle millions of messages per second.
+        </p>
+        <p>
+          Originally developed at LinkedIn, Kafka is now an open-source Apache project used by thousands of companies including Netflix, Uber, Airbnb, and LinkedIn for building real-time data pipelines and streaming applications.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Core Concepts</h2>
+
+        <h3>Topics</h3>
+        <p>
+          <strong>Topics</strong> are named channels or categories where messages are published. Think of a topic as a message feed organized by category. Examples: <code>user-registrations</code>, <code>purchase-orders</code>, <code>payment-events</code>.
+        </p>
+        <p>
+          Topics are append-only logs. Messages written to a topic are never modified - they're just appended to the end.
+        </p>
+
+        <h3>Producers</h3>
+        <p>
+          <strong>Producers</strong> are applications that publish (write) messages to Kafka topics. In our workshop, the <strong>frontend application</strong> is a producer that publishes purchase order messages.
+        </p>
+        <pre><code>Frontend Application
+        ↓ (publishes)
+    purchase-orders topic</code></pre>
+
+        <h3>Consumers</h3>
+        <p>
+          <strong>Consumers</strong> are applications that subscribe to (read) messages from Kafka topics. In our workshop, the <strong>backend application</strong> is a consumer that reads and processes purchase orders.
+        </p>
+        <pre><code>purchase-orders topic
+        ↓ (consumed by)
+    Backend Application</code></pre>
+
+        <h3>Consumer Groups</h3>
+        <p>
+          <strong>Consumer Groups</strong> enable load balancing and fault tolerance. Multiple consumers can join the same group to share the workload of processing messages from a topic. Each message is processed by only one consumer in the group.
+        </p>
+
+        <h3>Partitions</h3>
+        <p>
+          Topics are divided into <strong>partitions</strong> for parallelism and scalability. Each partition is an ordered, immutable sequence of messages. Partitions enable:
+        </p>
+        <ul>
+          <li><strong>Parallelism:</strong> Different consumers can read from different partitions simultaneously</li>
+          <li><strong>Ordering:</strong> Messages within a partition maintain order</li>
+          <li><strong>Scalability:</strong> Add more partitions to increase throughput</li>
+        </ul>
+
+        <h3>Brokers</h3>
+        <p>
+          Kafka runs as a cluster of servers called <strong>brokers</strong>. Each broker stores data for some partitions and handles read/write requests. Our Docker Compose setup runs a single broker on <code>localhost:9092</code>.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>In This Workshop</h2>
+        <p>
+          We use the <code>purchase-orders</code> topic to demonstrate event-driven order processing:
+        </p>
+
+        <h3>Topic Configuration</h3>
+        <pre><code>Topic Name: purchase-orders
+Purpose: Asynchronous purchase order processing
+Producers: Frontend application
+Consumers: Backend application
+Message Type: PurchaseOrderDTO</code></pre>
+
+        <h3>Message Flow</h3>
+        <pre><code>1. User submits order in frontend
+2. Frontend produces message to purchase-orders topic
+3. Kafka stores message durably
+4. Backend consumer receives message
+5. Backend processes order and saves to MySQL</code></pre>
+
+        <h3>Serialization</h3>
+        <p>
+          <strong>Phase 1 (Current):</strong> JSON serialization using <code>JsonSerializer</code> / <code>JsonDeserializer</code>
+        </p>
+        <p>
+          <strong>Phase 2 (Future):</strong> Avro serialization with Confluent Schema Registry for better schema evolution
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Why Use Kafka?</h2>
+        <ul>
+          <li><strong>High Throughput:</strong> Handle millions of messages per second with low latency</li>
+          <li><strong>Durability:</strong> Messages are persisted to disk and replicated across brokers</li>
+          <li><strong>Scalability:</strong> Scale horizontally by adding more brokers and partitions</li>
+          <li><strong>Decoupling:</strong> Producers and consumers are independent and don't know about each other</li>
+          <li><strong>Reliability:</strong> Fault-tolerant with data replication and automatic failover</li>
+          <li><strong>Real-Time:</strong> Process data as it arrives, not in batches</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Kafka Guarantees</h2>
+        <ul>
+          <li><strong>Order Guarantee:</strong> Messages in the same partition maintain order</li>
+          <li><strong>Durability:</strong> Once acknowledged, messages are not lost (with proper configuration)</li>
+          <li><strong>At-Least-Once Delivery:</strong> Messages are delivered at least once to consumers</li>
+          <li><strong>Exactly-Once Semantics:</strong> Available with transactional producers (advanced feature)</li>
+        </ul>
+      </section>
+
+      <div class="key-takeaways">
+        <h3>Key Takeaways</h3>
+        <ul>
+          <li>Kafka is a distributed commit log for building event-driven systems</li>
+          <li>Topics organize messages by category; partitions enable parallelism</li>
+          <li>Producers and consumers are decoupled through Kafka topics</li>
+          <li>Partitions enable parallel processing while maintaining order within each partition</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer-nav">
+    <div class="container">
+      <div class="footer-nav-content">
+        <a href="cqrs.html" class="footer-nav-button">
+          <div>
+            <div class="footer-nav-label">Previous</div>
+            <div class="footer-nav-title">← CQRS Pattern</div>
+          </div>
+        </a>
+        <a href="spring-boot-kafka.html" class="footer-nav-button primary">
+          <div>
+            <div class="footer-nav-label">Next</div>
+            <div class="footer-nav-title">Spring Boot + Kafka →</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/theme-toggle.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/progress.js"></script>
+</body>
+</html>

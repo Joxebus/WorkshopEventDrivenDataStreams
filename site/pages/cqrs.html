@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CQRS Pattern - Event-Driven Architecture Workshop">
+  <title>CQRS Pattern - Event-Driven Architecture Workshop</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <!-- Preload Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Skip to content for accessibility -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../index.html" class="header-logo">
+          <span>⚡</span>
+          <span>Event-Driven Architecture Workshop</span>
+        </a>
+
+        <div class="header-actions">
+          <!-- Progress Indicator -->
+          <div class="progress-indicator">
+            <span id="progress-text" class="progress-text">Page 2 of 11</span>
+            <div class="progress-bar">
+              <div id="progress-bar-fill" class="progress-bar-fill" style="width: 18%"></div>
+            </div>
+          </div>
+
+          <!-- Theme Toggle -->
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z"/>
+            </svg>
+          </button>
+
+          <!-- Nav Toggle Button -->
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Menu -->
+  <nav id="nav-menu" class="nav-menu">
+    <div class="nav-menu-content">
+      <h3 class="nav-menu-title">Workshop Sections</h3>
+      <ul class="nav-menu-list">
+        <li class="nav-menu-item"><a href="../index.html" class="nav-menu-link">Home</a></li>
+        <li class="nav-menu-item"><a href="event-sourcing.html" class="nav-menu-link">1. Event Sourcing</a></li>
+        <li class="nav-menu-item"><a href="cqrs.html" class="nav-menu-link">2. CQRS Pattern</a></li>
+        <li class="nav-menu-item"><a href="kafka-basics.html" class="nav-menu-link">3. Kafka Fundamentals</a></li>
+        <li class="nav-menu-item"><a href="spring-boot-kafka.html" class="nav-menu-link">4. Spring Boot + Kafka</a></li>
+        <li class="nav-menu-item"><a href="async-communication.html" class="nav-menu-link">5. Async Communication</a></li>
+        <li class="nav-menu-item"><a href="project-architecture.html" class="nav-menu-link">6. Project Architecture</a></li>
+        <li class="nav-menu-item"><a href="real-world-example.html" class="nav-menu-link">7. Order Processing</a></li>
+        <li class="nav-menu-item"><a href="data-serialization.html" class="nav-menu-link">8. Data Serialization</a></li>
+        <li class="nav-menu-item"><a href="testing-patterns.html" class="nav-menu-link">9. Testing Patterns</a></li>
+        <li class="nav-menu-item"><a href="docker-setup.html" class="nav-menu-link">10. Docker Setup</a></li>
+        <li class="nav-menu-item"><a href="best-practices.html" class="nav-menu-link">11. Best Practices</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overlay -->
+  <div id="nav-overlay" class="nav-overlay"></div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container">
+
+      <h1>CQRS Pattern</h1>
+      <p class="description">
+        Command Query Responsibility Segregation (CQRS) separates read operations (queries) from write operations (commands) to optimize performance and scalability.
+      </p>
+
+      <section class="content-section">
+        <h2>What is CQRS?</h2>
+        <p>
+          CQRS stands for <strong>Command Query Responsibility Segregation</strong>. It's a pattern that separates the model used to update information (commands) from the model used to read information (queries).
+        </p>
+        <p>
+          In traditional architectures, the same model serves both reads and writes. CQRS splits these concerns, allowing each side to be optimized independently. Commands change state but don't return data. Queries return data but don't change state.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Core Concepts</h2>
+
+        <h3>Commands vs Queries</h3>
+        <p>
+          <strong>Commands:</strong> Operations that change state. Examples: CreateProduct, UpdateProduct, ProcessOrder. Commands are imperative ("do this") and typically return success/failure status.
+        </p>
+        <p>
+          <strong>Queries:</strong> Operations that return data without changing state. Examples: GetProduct, ListOrders, SearchProducts. Queries are interrogative ("tell me about this") and return data.
+        </p>
+
+        <h3>Separation of Models</h3>
+        <p>
+          Commands and queries can use different data models, optimized for their specific use cases. The write model focuses on business logic and validation. The read model focuses on efficient data retrieval and presentation.
+        </p>
+
+        <h3>Independent Scaling</h3>
+        <p>
+          Since reads and writes are separated, they can be scaled independently. If your application is read-heavy, you can scale the query side without affecting the command side.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>In This Workshop</h2>
+        <p>
+          Our backend module (<code>spring-boot-kafka-backend</code>) implements CQRS at the service layer with dedicated service classes:
+        </p>
+
+        <h3>Command Services (Write Operations)</h3>
+        <pre><code>ProductCommandService
+- createProduct(ProductDTO)
+- updateProduct(UUID id, ProductDTO)
+- deleteProduct(UUID id)
+- updateStock(UUID id, int quantity)
+
+OrderCommandService
+- createOrder(PurchaseOrderDTO)
+- processOrder(UUID orderId)
+- updateOrderStatus(UUID orderId, PurchaseOrderStatus status)</code></pre>
+
+        <h3>Query Services (Read Operations)</h3>
+        <pre><code>ProductQueryService
+- getAllProducts(): List&lt;ProductDTO&gt;
+- getProductById(UUID id): ProductDTO
+- searchProducts(String keyword): List&lt;ProductDTO&gt;
+- getProductsByCategory(String category): List&lt;ProductDTO&gt;
+
+OrderQueryService
+- getAllOrders(): List&lt;PurchaseOrderDTO&gt;
+- getOrderById(UUID id): PurchaseOrderDTO
+- getOrdersByCustomer(String customerId): List&lt;PurchaseOrderDTO&gt;
+- getOrdersByStatus(PurchaseOrderStatus status): List&lt;PurchaseOrderDTO&gt;</code></pre>
+
+        <h3>Simplified CQRS</h3>
+        <p>
+          Our implementation uses the <strong>same MySQL database</strong> for both commands and queries. This is a simplified CQRS pattern suitable for learning and moderate-scale applications.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Benefits of CQRS</h2>
+        <ul>
+          <li><strong>Scalability:</strong> Scale read and write operations independently based on load</li>
+          <li><strong>Optimization:</strong> Optimize each side for its specific use case (write validation vs read performance)</li>
+          <li><strong>Separation of Concerns:</strong> Clear boundaries between state changes and data retrieval</li>
+          <li><strong>Flexibility:</strong> Different data models for commands and queries if needed</li>
+          <li><strong>Security:</strong> Easier to apply different security rules to commands vs queries</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Advanced CQRS</h2>
+        <p>
+          In more complex scenarios, CQRS can use completely separate databases:
+        </p>
+        <ul>
+          <li><strong>Write Database:</strong> Optimized for transactions, normalization, and consistency (e.g., PostgreSQL)</li>
+          <li><strong>Read Database:</strong> Optimized for queries, denormalization, and speed (e.g., Elasticsearch, MongoDB)</li>
+          <li><strong>Synchronization:</strong> Event-driven sync using Kafka to propagate changes from write to read models</li>
+        </ul>
+        <p>
+          This advanced pattern enables <strong>polyglot persistence</strong> - using the right database for each job.
+        </p>
+      </section>
+
+      <!-- Key Takeaways -->
+      <div class="key-takeaways">
+        <h3>Key Takeaways</h3>
+        <ul>
+          <li>Separate command (write) operations from query (read) operations</li>
+          <li>Commands change state, queries return data without side effects</li>
+          <li>Enables independent scaling and optimization of each side</li>
+          <li>Can use separate data models or even separate databases for advanced scenarios</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Navigation -->
+  <footer class="footer-nav">
+    <div class="container">
+      <div class="footer-nav-content">
+        <a href="event-sourcing.html" class="footer-nav-button">
+          <div>
+            <div class="footer-nav-label">Previous</div>
+            <div class="footer-nav-title">← Event Sourcing</div>
+          </div>
+        </a>
+        <a href="kafka-basics.html" class="footer-nav-button primary">
+          <div>
+            <div class="footer-nav-label">Next</div>
+            <div class="footer-nav-title">Kafka Fundamentals →</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/theme-toggle.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/progress.js"></script>
+</body>
+</html>
