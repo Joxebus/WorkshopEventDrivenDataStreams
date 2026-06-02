@@ -37,3 +37,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Internal Documentation ###
+.ia/
+CLAUDE.md
+.claude/
