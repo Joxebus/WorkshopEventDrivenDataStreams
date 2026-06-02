@@ -87,16 +87,16 @@ git --version
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                            USER                                      │
+│                            USER                                     │
 └────────────────────────────┬────────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    FRONTEND (Port 8080)                              │
-│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐  │
-│  │  Thymeleaf Views │  │  REST Client     │  │  Kafka Producer  │  │
-│  │  (Tailwind CSS)  │  │  (RestTemplate)  │  │                  │  │
-│  └──────────────────┘  └──────────────────┘  └──────────────────┘  │
+│                    FRONTEND (Port 8080)                             │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐   │
+│  │  Thymeleaf Views │  │  REST Client     │  │  Kafka Producer  │   │
+│  │  (Tailwind CSS)  │  │  (RestTemplate)  │  │                  │   │
+│  └──────────────────┘  └──────────────────┘  └──────────────────┘   │
 └─────────┬──────────────────────┬─────────────────────┬──────────────┘
           │                      │                     │
           │ HTTP GET/POST        │                     │ Kafka Message
@@ -104,10 +104,10 @@ git --version
           ▼                      ▼                     ▼
 ┌────────────────────┐  ┌─────────────────────────────────────────────┐
 │   BACKEND API      │  │        KAFKA (Port 9092)                    │
-│   (Port 8081)      │  │  ┌─────────────────────────────────────┐   │
-│                    │  │  │  Topic: purchase-orders             │   │
-│  ┌──────────────┐  │  │  │  Format: JSON (PurchaseOrderDTO)    │   │
-│  │ REST APIs    │  │  │  └─────────────────────────────────────┘   │
+│   (Port 8081)      │  │  ┌─────────────────────────────────────┐    │
+│                    │  │  │  Topic: purchase-orders             │    │
+│  ┌──────────────┐  │  │  │  Format: JSON (PurchaseOrderDTO)    │    │
+│  │ REST APIs    │  │  │  └─────────────────────────────────────┘    │
 │  │ /api/products│  │  └───────────────────┬─────────────────────────┘
 │  │ /api/orders  │  │                      │
 │  └──────────────┘  │                      │ Kafka Consumer
@@ -126,11 +126,11 @@ git --version
           │
           ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    MYSQL (Port 3306)                                 │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐              │
-│  │   Product    │  │    Order     │  │  OrderItem   │              │
-│  │  (Catalog)   │  │   (Header)   │  │  (Details)   │              │
-│  └──────────────┘  └──────────────┘  └──────────────┘              │
+│                    MYSQL (Port 3306)                                │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐               │
+│  │   Product    │  │    Order     │  │  OrderItem   │               │
+│  │  (Catalog)   │  │   (Header)   │  │  (Details)   │               │
+│  └──────────────┘  └──────────────┘  └──────────────┘               │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -170,18 +170,18 @@ The backend implements **CQRS (Command Query Responsibility Segregation)** at th
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    BACKEND SERVICES                          │
-│                                                              │
-│  ┌─────────────────────────┐  ┌─────────────────────────┐  │
-│  │   CommandService        │  │    QueryService         │  │
-│  │   (Write Operations)    │  │    (Read Operations)    │  │
-│  │                         │  │                         │  │
-│  │ • createProduct()       │  │ • getAllProducts()      │  │
-│  │ • updateProduct()       │  │ • getProductById()      │  │
-│  │ • deleteProduct()       │  │ • searchProducts()      │  │
-│  │ • processOrder()        │  │ • getAllOrders()        │  │
-│  │                         │  │ • getOrderById()        │  │
-│  └───────────┬─────────────┘  └───────────┬─────────────┘  │
+│                    BACKEND SERVICES                         │
+│                                                             │
+│  ┌─────────────────────────┐  ┌─────────────────────────┐   │
+│  │   CommandService        │  │    QueryService         │   │
+│  │   (Write Operations)    │  │    (Read Operations)    │   │
+│  │                         │  │                         │   │
+│  │ • createProduct()       │  │ • getAllProducts()      │   │
+│  │ • updateProduct()       │  │ • getProductById()      │   │
+│  │ • deleteProduct()       │  │ • searchProducts()      │   │
+│  │ • processOrder()        │  │ • getAllOrders()        │   │
+│  │                         │  │ • getOrderById()        │   │
+│  └───────────┬─────────────┘  └───────────┬─────────────┘   │
 │              │                            │                 │
 │              └────────────┬───────────────┘                 │
 │                           ▼                                 │
@@ -197,7 +197,7 @@ The backend implements **CQRS (Command Query Responsibility Segregation)** at th
 ### Multi-Module Structure
 
 ```
-SpringBootKafkaWorkshop/
+WorkshopEventDrivenDataStreams/
 ├── spring-boot-kafka-common/       # Shared module
 │   ├── dto/                        # Data Transfer Objects
 │   │   ├── ProductDTO
