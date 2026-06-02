@@ -62,34 +62,35 @@
       <section class="content-section">
         <h2>Infrastructure Services</h2>
         <ul>
-          <li><strong>MySQL 8.0</strong> - Port 3306, database: workshop</li>
-          <li><strong>Apache Kafka</strong> - Port 9092</li>
-          <li><strong>Zookeeper</strong> - Port 2181</li>
+          <li><strong>MySQL 8.0</strong> - Port 3306, database: workshop, user: workshop, password: workshop</li>
+          <li><strong>Apache Kafka 7.5.0</strong> - Port 9092</li>
+          <li><strong>Zookeeper 7.5.0</strong> - Port 2181</li>
         </ul>
       </section>
 
       <section class="content-section">
         <h2>docker-compose.yml</h2>
-        <pre><code>version: '3.8'
-
-services:
+        <pre><code>services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper
-    ports:
-      - "2181:2181"
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: workshop-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka-workshop
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "2181"]
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 10s
 
   kafka:
-    image: confluentinc/cp-kafka:latest
-    container_name: kafka
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: workshop-kafka
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -99,29 +100,45 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    networks:
+      - kafka-workshop
     healthcheck:
       test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
       interval: 10s
       timeout: 10s
-      retries: 5
+      retries: 10
+      start_period: 30s
 
   mysql:
     image: mysql:8.0
-    platform: linux/arm64  # For Apple Silicon
-    container_name: mysql
+    platform: linux/arm64
+    container_name: workshop-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: workshop
+      MYSQL_USER: workshop
+      MYSQL_PASSWORD: workshop
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: workshop
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
+    networks:
+      - kafka-workshop
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 30s
+
+networks:
+  kafka-workshop:
+    driver: bridge
 
 volumes:
   mysql-data:</code></pre>
@@ -177,20 +194,41 @@ docker-compose down -v</code></pre>
       <section class="content-section">
         <h2>Health Checks</h2>
         <ul>
-          <li><strong>Zookeeper:</strong> <code>nc -z localhost 2181</code></li>
-          <li><strong>Kafka:</strong> <code>kafka-broker-api-versions</code> command</li>
-          <li><strong>MySQL:</strong> <code>mysqladmin ping</code></li>
+          <li><strong>Zookeeper:</strong> <code>nc -z localhost 2181</code> (10s interval, 5 retries, 10s start period)</li>
+          <li><strong>Kafka:</strong> <code>kafka-broker-api-versions --bootstrap-server localhost:9092</code> (10s interval, 10 retries, 30s start period)</li>
+          <li><strong>MySQL:</strong> <code>mysqladmin ping -h localhost -u root -prootpassword</code> (10s interval, 5 retries, 30s start period)</li>
         </ul>
-        <p>Health checks ensure proper startup order and prevent connection failures.</p>
+        <p>Health checks ensure proper startup order and prevent connection failures. The <code>start_period</code> gives services time to initialize before health checks begin.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Network Configuration</h2>
+        <p>All services are connected via a custom bridge network called <code>kafka-workshop</code>. This allows containers to communicate with each other using their service names:</p>
+        <ul>
+          <li>Kafka connects to Zookeeper using <code>zookeeper:2181</code></li>
+          <li>Services are isolated from other Docker networks</li>
+          <li>External access via exposed ports (9092, 3306, 2181)</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Volume Mounts</h2>
+        <ul>
+          <li><strong>mysql-data:</strong> Named volume for persistent database storage</li>
+          <li><strong>./mysql:</strong> Directory mount for MySQL initialization scripts (optional)</li>
+        </ul>
+        <p>Data persists across container restarts. Use <code>docker-compose down -v</code> to remove volumes.</p>
       </section>
 
       <div class="key-takeaways">
         <h3>Key Takeaways</h3>
         <ul>
-          <li>Docker Compose manages all infrastructure services</li>
-          <li>Health checks ensure proper startup sequence</li>
-          <li>Multi-architecture support (ARM64/AMD64)</li>
-          <li>Easy local development environment setup</li>
+          <li>Docker Compose manages all infrastructure services with version 7.5.0 for Confluent images</li>
+          <li>Health checks with start periods ensure proper startup sequence</li>
+          <li>Custom bridge network isolates workshop services</li>
+          <li>Multi-architecture support (ARM64/AMD64) with platform-specific configuration</li>
+          <li>Persistent volumes for MySQL data across container restarts</li>
+          <li>Easy local development environment setup with single command</li>
         </ul>
       </div>
     </div>
