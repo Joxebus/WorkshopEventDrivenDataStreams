@@ -1,11 +1,20 @@
 {
   "name": "Spring Boot Kafka Workshop",
-  "image": "mcr.microsoft.com/devcontainers/java:1-25-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/java:25",
 
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "version": "latest",
-      "enableNonRootDocker": "true"
+      "moby": false,
+      "enableNonRootDocker": "true",
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "none",
+      "jdkDistro": "ms",
+      "installMaven": "true",
+      "mavenVersion": "latest",
+      "installGradle": "false"
     },
     "ghcr.io/devcontainers/features/git:1": {
       "version": "latest"
@@ -30,15 +39,6 @@
         "eamodio.gitlens"
       ],
       "settings": {
-        "java.configuration.runtimes": [
-          {
-            "name": "JavaSE-25",
-            "path": "/usr/local/sdkman/candidates/java/current",
-            "default": true
-          }
-        ],
-        "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
-        "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn",
         "files.exclude": {
           "**/.classpath": true,
           "**/.project": true,
@@ -47,7 +47,8 @@
         },
         "java.compile.nullAnalysis.mode": "automatic",
         "spring-boot.ls.checkjvm": false,
-        "java.server.launchMode": "Standard"
+        "java.server.launchMode": "Standard",
+        "maven.terminal.useJavaHome": true
       }
     }
   },
@@ -85,21 +86,11 @@
 
   "postCreateCommand": "bash .devcontainer/setup.sh",
 
-  "postStartCommand": "docker-compose up -d && echo 'Infrastructure started! Wait ~30s for services to be healthy.'",
+  "postStartCommand": "echo 'Welcome to the Spring Boot Kafka Workshop! \n' && cat .devcontainer/welcome.txt",
 
   "remoteUser": "vscode",
 
   "containerEnv": {
-    "JAVA_HOME": "/usr/local/sdkman/candidates/java/current",
-    "MAVEN_HOME": "/usr/local/sdkman/candidates/maven/current",
     "SPRING_PROFILES_ACTIVE": "dev"
-  },
-
-  "mounts": [
-    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-  ],
-
-  "runArgs": [
-    "--network=host"
-  ]
+  }
 }

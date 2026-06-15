@@ -20,21 +20,23 @@
 🎯 Next Steps:
 
    1. Start Backend (Terminal 1):
-      $ cd spring-boot-kafka-backend
-      $ mvn spring-boot:run
+      $ backend
 
    2. Start Frontend (Terminal 2):
-      $ cd spring-boot-kafka-frontend
-      $ mvn spring-boot:run
+      $ frontend
 
    3. Open Browser:
       → Click "Ports" tab → Port 8080 → Globe icon 🌐
 
+   Note: Commands use 'java -jar' for fast startup (project is pre-built)
+
 🛠️  Quick Commands:
 
-   Application:
-     backend          Start backend service
-     frontend         Start frontend service
+   Application (Fast Startup):
+     backend          Start backend with java -jar
+     frontend         Start frontend with java -jar
+     backend-mvn      Start backend with Maven
+     frontend-mvn     Start frontend with Maven
 
    Infrastructure:
      infra-status     Check service health
@@ -43,7 +45,8 @@
      infra-down       Stop all services
 
    Development:
-     build-all        Build entire project
+     build-all        Build entire project (verify + tests)
+     rebuild          Quick build (package, skip tests)
      test-all         Run all tests
      workshop-status  Complete system status
 
@@ -73,5 +76,7 @@
 
 ═══════════════════════════════════════════════════════════════════════════════
 
-Ready to code! Type 'backend' or 'frontend' to start the applications. 🎉
+Ready to code!
+Start the infrastructure with 'infra-up' and then launch the backend and frontend applications.
+Type 'backend' or 'frontend' to start the applications. 🎉
 

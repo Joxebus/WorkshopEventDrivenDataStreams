@@ -44,15 +44,21 @@ Once setup completes, you'll see helpful information in the terminal.
 
 **Terminal 1 - Backend:**
 ```bash
-cd spring-boot-kafka-backend
-mvn spring-boot:run
+backend
 ```
 
 **Terminal 2 - Frontend:**
 ```bash
-cd spring-boot-kafka-frontend
-mvn spring-boot:run
+frontend
 ```
+
+> 💡 **Tip:** These commands use `java -jar` for fast startup. The JARs are pre-built during setup!
+>
+> If you make code changes, rebuild first:
+> ```bash
+> rebuild    # Quick build (skips tests)
+> backend    # Start with new changes
+> ```
 
 ### Step 4: Access the Application
 
@@ -81,9 +87,11 @@ Codespaces automatically forwards these ports:
 Type these commands directly in the terminal:
 
 ```bash
-# Application management
-backend          # Start backend service
-frontend         # Start frontend service
+# Application management (All use 'dev' profile for Codespaces)
+backend          # Start backend with java -jar (fast, dev profile)
+frontend         # Start frontend with java -jar (fast, dev profile)
+backend-mvn      # Start backend with Maven (slower, dev profile, hot reload)
+frontend-mvn     # Start frontend with Maven (slower, dev profile, hot reload)
 
 # Infrastructure management  
 infra-up         # Start Docker services
@@ -93,7 +101,8 @@ infra-logs       # View all service logs
 workshop-status  # Complete system overview
 
 # Build and test
-build-all        # mvn clean verify
+build-all        # mvn clean verify (full build)
+rebuild          # mvn clean package -DskipTests (quick)
 test-all         # mvn test
 
 # Kafka tools
@@ -199,8 +208,18 @@ curl -X POST http://localhost:8081/api/products \
 ### Making Code Changes
 
 1. **Edit code** in VS Code
-2. **Spring Boot DevTools** automatically reloads changes
-3. **Refresh browser** to see changes
+2. **Rebuild the project** (if using `java -jar` aliases):
+   ```bash
+   rebuild    # Fast build, skips tests
+   ```
+3. **Restart the service**:
+   ```bash
+   # Stop the running service (Ctrl+C)
+   backend    # or frontend
+   ```
+4. **Refresh browser** to see changes
+
+> 💡 **Alternative:** Use `backend-mvn` / `frontend-mvn` for Maven with DevTools hot reload (slower startup)
 
 ### Running Tests
 

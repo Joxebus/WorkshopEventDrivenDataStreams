@@ -43,7 +43,8 @@ services:
 
   mysql:
     image: mysql:8.0
-    platform: linux/arm64
+    # For Apple Silicon (M1/M2) users, uncomment the following line to use the ARM64 version of MySQL
+    # platform: linux/arm64
     container_name: workshop-mysql
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword

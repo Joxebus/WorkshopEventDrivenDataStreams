@@ -16,13 +16,17 @@ This directory contains the configuration for running the Spring Boot Kafka Work
 
 3. **Start the Application**
    ```bash
-   # Terminal 1 - Backend
-   cd spring-boot-kafka-backend
-   mvn spring-boot:run
+   # Terminal 1 - Backend (fast startup with java -jar)
+   backend
    
-   # Terminal 2 - Frontend
-   cd spring-boot-kafka-frontend
-   mvn spring-boot:run
+   # Terminal 2 - Frontend (fast startup with java -jar)
+   frontend
+   ```
+   
+   **Alternative (slower startup):**
+   ```bash
+   backend-mvn    # Uses mvn spring-boot:run
+   frontend-mvn   # Uses mvn spring-boot:run
    ```
 
 4. **Access the Application**
@@ -63,9 +67,13 @@ The setup script creates useful aliases in your shell:
 
 ### Application Management
 ```bash
-backend          # Start backend service
-frontend         # Start frontend service
+backend          # Start backend with java -jar + dev profile (fast)
+frontend         # Start frontend with java -jar + dev profile (fast)
+backend-mvn      # Start backend with Maven + dev profile (slower, hot reload)
+frontend-mvn     # Start frontend with Maven + dev profile (slower, hot reload)
 ```
+
+> 💡 All aliases automatically use the `dev` profile for Codespaces compatibility (proper redirects, forwarded headers)
 
 ### Infrastructure Management
 ```bash
@@ -78,7 +86,8 @@ workshop-status  # Complete system status
 
 ### Build & Test
 ```bash
-build-all        # mvn clean verify
+build-all        # mvn clean verify (full build with tests)
+rebuild          # mvn clean package -DskipTests (quick build)
 test-all         # mvn test
 ```
 
