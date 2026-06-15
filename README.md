@@ -4,6 +4,33 @@ A hands-on workshop demonstrating **Event-Driven Architecture** and **CQRS** pat
 
 ## 🚀 Quick Start
 
+### Option 1: GitHub Codespaces (Recommended for Quick Setup)
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main)
+
+Click the badge above or follow these steps:
+1. Click the green "Code" button on GitHub
+2. Select "Codespaces" tab
+3. Click "Create codespace on main"
+4. Wait ~3-5 minutes for automatic setup
+5. Infrastructure starts automatically, then run:
+
+```bash
+# Terminal 1 - Start backend
+cd spring-boot-kafka-backend
+mvn spring-boot:run
+
+# Terminal 2 - Start frontend  
+cd spring-boot-kafka-frontend
+mvn spring-boot:run
+
+# Access the application via forwarded port 8080
+```
+
+**See [.devcontainer/README.md](.devcontainer/README.md) for complete Codespaces documentation.**
+
+### Option 2: Local Development
+
 ```bash
 # 1. Start infrastructure (MySQL, Kafka, Zookeeper)
 docker-compose up -d

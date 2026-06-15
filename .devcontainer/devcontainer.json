@@ -1,0 +1,105 @@
+{
+  "name": "Spring Boot Kafka Workshop",
+  "image": "mcr.microsoft.com/devcontainers/java:1-25-bookworm",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "enableNonRootDocker": "true"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-spring-boot-dashboard",
+        "vmware.vscode-boot-dev-pack",
+        "pivotal.vscode-spring-boot",
+        "redhat.java",
+        "vscjava.vscode-maven",
+        "ms-azuretools.vscode-docker",
+        "rangav.vscode-thunder-client",
+        "streetsidesoftware.code-spell-checker",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-25",
+            "path": "/usr/local/sdkman/candidates/java/current",
+            "default": true
+          }
+        ],
+        "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
+        "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn",
+        "files.exclude": {
+          "**/.classpath": true,
+          "**/.project": true,
+          "**/.settings": true,
+          "**/.factorypath": true
+        },
+        "java.compile.nullAnalysis.mode": "automatic",
+        "spring-boot.ls.checkjvm": false,
+        "java.server.launchMode": "Standard"
+      }
+    }
+  },
+
+  "forwardPorts": [
+    8080,
+    8081,
+    3306,
+    9092,
+    2181
+  ],
+
+  "portsAttributes": {
+    "8080": {
+      "label": "Frontend (Thymeleaf UI)",
+      "onAutoForward": "notify"
+    },
+    "8081": {
+      "label": "Backend (REST API)",
+      "onAutoForward": "silent"
+    },
+    "3306": {
+      "label": "MySQL Database",
+      "onAutoForward": "silent"
+    },
+    "9092": {
+      "label": "Kafka Broker",
+      "onAutoForward": "silent"
+    },
+    "2181": {
+      "label": "Zookeeper",
+      "onAutoForward": "silent"
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+
+  "postStartCommand": "docker-compose up -d && echo 'Infrastructure started! Wait ~30s for services to be healthy.'",
+
+  "remoteUser": "vscode",
+
+  "containerEnv": {
+    "JAVA_HOME": "/usr/local/sdkman/candidates/java/current",
+    "MAVEN_HOME": "/usr/local/sdkman/candidates/maven/current",
+    "SPRING_PROFILES_ACTIVE": "dev"
+  },
+
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+
+  "runArgs": [
+    "--network=host"
+  ]
+}
